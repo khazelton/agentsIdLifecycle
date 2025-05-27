@@ -1,6 +1,6 @@
 IGA-AAI.adoc
 
-Integrated management of authentication, authorization, and credentials for non-human identities
+Integrated management of authentication, authorization, and credentials for human and non-human identities
 
 3) AAI: Technical Implementation Patterns
 
