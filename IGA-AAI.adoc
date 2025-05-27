@@ -1,0 +1,502 @@
+IGA-AAI.adoc
+
+3) AAI: Technical Implementation Patterns
+
+OAuth 2.0 + OIDC for Everything: Use OAuth for both human and machine authentication flows. Service-to-service communication uses client credentials flow, while humans use authorization code flow.
+
+Certificate-Based Identity: For non-human entities, certificate-based authentication provides strong cryptographic identity. Combine with automated certificate lifecycle management.
+
+Zero Trust Architecture: Treat every entity (human or machine) as untrusted by default. Continuously verify identity and context for every access request.
+
+6) AAI: Authentication & Authorization Engine
+
+- Multi-Protocol Support
+
+OAuth 2.0/OIDC: Full implementation including device flow, client credentials, and PKCE
+
+SAML 2.0: Enterprise SSO integration
+
+Certificate-Based Auth: X.509 certificate management with automated rotation
+
+API Key Management: Generation, rotation, and scope management
+
+Biometric Integration: Support for modern authentication methods
+
+- Policy Engine
+
+ABAC Implementation: Attribute-based access control with dynamic policy evaluation
+
+Policy as Code: Version-controlled policy definitions with CI/CD integration
+
+Context-Aware Decisions: Time, location, device, network, and behavioral context
+
+Policy Testing Framework: Simulation and validation tools
+
+8) AAI: Security & Compliance
+
+8a) Risk Assessment
+Behavioral Analytics: ML-powered anomaly detection for both human and non-human entities
+
+Risk Scoring: Dynamic risk calculation based on access patterns, privileges, and context
+
+Threat Intelligence Integration: External threat feed integration for enhanced detection
+
+Adaptive Authentication: Risk-based step-up authentication
+
+8b) AAI: Audit & Compliance
+
+Comprehensive Logging: Immutable audit logs with digital signatures
+
+Compliance Reporting: Pre-built reports for SOX, PCI-DSS, GDPR, SOC 2
+
+Access Reviews: Automated access certification campaigns with manager attestation
+
+Segregation of Duties: Conflict detection and prevention
+
+9) AAI: Monitoring & Analytics
+
+9a) Operational Dashboards
+
+Real-Time Monitoring: System health, authentication rates, and failure metrics
+
+Entity Analytics: Usage patterns, privilege utilization, and lifecycle metrics
+
+Security Dashboard: Risk indicators, policy violations, and threat detection
+
+Custom KPIs: Configurable metrics and alerting
+
+9b) AAI: Analytics
+
+Identity Analytics: Privileged access analysis, dormant accounts, and over-privileged entities
+
+Machine Learning: Predictive analytics for access patterns and security risks
+
+Data Lake Integration: Export capabilities for external analytics platforms
+
+API Analytics: Service-to-service communication patterns and anomalies
+
+
+12) AAI: Performance & Scalability
+
+12a) Performance Requirements
+
+Sub-Second Response: Authentication decisions under 500ms
+
+High Throughput: Support for 100,000+ concurrent authentications
+
+Global Distribution: CDN integration for worldwide deployment
+
+Caching Strategy: Intelligent caching with real-time invalidation
+
+
+12b) Scalability Features
+
+Horizontal Scaling: Auto-scaling based on load metrics
+
+Database Optimization: Sharding and read replicas for large datasets
+
+Rate Limiting: Configurable throttling to prevent abuse
+
+Performance Monitoring: APM integration with alerting
+
+15) AAI: Security & Risk Management
+
+Risk Assessment: Continuous risk evaluation through RiskAssessment entities that consider behavioral patterns, access patterns, and contextual factors.
+
+Comprehensive Auditing: AuditEvent captures all actions across the system with correlation IDs for investtion and compliance reporting.
+
+Session Management: Session entities track active connections for both human users and service-to-service communications.
+
+- - -
+
+
+- - -
+
+ERDiagram
+	%% Core Identity Entities
+	Entity {
+    	string id PK
+    	string entityType "HUMAN|SERVICE|DEVICE|API|BOT"
+    	string status "ACTIVE|INACTIVE|SUSPENDED|EXPIRED"
+    	datetime createdAt
+    	datetime updatedAt
+    	datetime lastAccessAt
+    	string createdBy FK
+    	json metadata
+    	string tenantId FK
+	}
+
+	HumanIdentity {
+    	string entityId PK,FK
+    	string firstName
+    	string lastName
+    	string email
+    	string employeeId
+    	string department
+    	string jobTitle
+    	string manager FK
+    	date startDate
+    	date endDate
+    	boolean isContractor
+    	string preferredLanguage
+    	json personalAttributes
+	}
+
+	ServiceIdentity {
+    	string entityId PK,FK
+    	string serviceName
+    	string serviceType "API|MICROSERVICE|LAMBDA|BATCH_JOB"
+    	string environment "DEV|STAGING|PROD"
+    	string applicationId FK
+    	string ownerTeam
+    	json serviceMetadata
+    	string healthCheckUrl
+    	datetime lastHealthCheck
+	}
+
+	DeviceIdentity {
+    	string entityId PK,FK
+    	string deviceName
+    	string deviceType "IOT|MOBILE|LAPTOP|SERVER"
+    	string macAddress
+    	string serialNumber
+    	string osType
+    	string osVersion
+    	string location
+    	string assignedTo FK
+    	datetime lastSeen
+    	json deviceAttributes
+	}
+
+	ApiIdentity {
+    	string entityId PK,FK
+    	string apiName
+    	string version
+    	string endpoint
+    	string documentation
+    	string[] scopes
+    	string rateLimit
+    	string ownerService FK
+    	boolean isPublic
+    	json apiMetadata
+	}
+
+	%% Authentication & Credentials
+	Credential {
+    	string id PK
+    	string entityId FK
+    	string credentialType "PASSWORD|CERTIFICATE|API_KEY|TOKEN|BIOMETRIC"
+    	string status "ACTIVE|EXPIRED|REVOKED|PENDING"
+    	datetime expiresAt
+    	datetime lastRotated
+    	string hashedValue
+    	json credentialMetadata
+    	boolean requiresRotation
+    	int rotationDays
+	}
+
+	Certificate {
+    	string credentialId PK,FK
+    	string serialNumber
+    	string issuer
+    	string subject
+    	datetime validFrom
+    	datetime validTo
+    	string algorithm
+    	int keySize
+    	string certificateChain
+    	boolean isRevoked
+    	string revocationReason
+	}
+
+	ApiKey {
+    	string credentialId PK,FK
+    	string keyPrefix
+    	string[] scopes
+    	string description
+    	int usageCount
+    	int maxUsage
+    	datetime lastUsed
+    	string ipWhitelist
+    	boolean isRateLimited
+	}
+
+	%% Authorization Framework
+	Role {
+    	string id PK
+    	string name
+    	string description
+    	string roleType "BUSINESS|TECHNICAL|ADMINISTRATIVE"
+    	string tenantId FK
+    	boolean isSystem
+    	json roleMetadata
+    	datetime createdAt
+    	string createdBy FK
+	}
+
+	Permission {
+    	string id PK
+    	string resource
+    	string action
+    	string effect "ALLOW|DENY"
+    	json conditions
+    	string description
+    	boolean isSystem
+    	string tenantId FK
+	}
+
+	Policy {
+    	string id PK
+    	string name
+    	string description
+    	string policyType "ABAC|RBAC|CUSTOM"
+    	json rules
+    	string effect "ALLOW|DENY"
+    	boolean isActive
+    	datetime effectiveFrom
+    	datetime effectiveTo
+    	string tenantId FK
+    	string version
+	}
+
+	%% Access Management
+	AccessRequest {
+    	string id PK
+    	string requesterId FK
+    	string resourceType
+    	string resourceId
+    	string accessType
+    	string justification
+    	string status "PENDING|APPROVED|REJECTED|EXPIRED"
+    	datetime requestedAt
+    	datetime approvedAt
+    	string approvedBy FK
+    	datetime expiresAt
+    	boolean isEmergency
+    	json requestMetadata
+	}
+
+	AccessGrant {
+    	string id PK
+    	string entityId FK
+    	string resourceType
+    	string resourceId
+    	string accessType
+    	datetime grantedAt
+    	datetime expiresAt
+    	string grantedBy FK
+    	string grantSource "REQUEST|PROVISIONING|INHERITANCE"
+    	boolean isTemporary
+    	json grantConditions
+	}
+
+	Session {
+    	string id PK
+    	string entityId FK
+    	string sessionType "WEB|API|SERVICE"
+    	datetime startTime
+    	datetime lastActivity
+    	datetime expiresAt
+    	string sourceIp
+    	string userAgent
+    	json contextData
+    	boolean isActive
+    	string terminationReason
+	}
+
+	%% Resource Management
+	Resource {
+    	string id PK
+    	string name
+    	string resourceType "APPLICATION|DATABASE|API|FILE|SYSTEM"
+    	string description
+    	string owner FK
+    	string[] tags
+    	json resourceMetadata
+    	boolean requiresApproval
+    	string sensitivity "PUBLIC|INTERNAL|CONFIDENTIAL|RESTRICTED"
+    	string tenantId FK
+	}
+
+	Application {
+    	string resourceId PK,FK
+    	string applicationName
+    	string applicationUrl
+    	string applicationType "WEB|MOBILE|DESKTOP|API"
+    	string[] supportedProtocols
+    	boolean ssoEnabled
+    	string provisioningType "MANUAL|AUTO|JIT"
+    	json ssoConfiguration
+    	string healthStatus
+	}
+
+	%% Lifecycle & Workflow
+	LifecycleState {
+    	string id PK
+    	string entityId FK
+    	string currentState
+    	string previousState
+    	datetime stateChangedAt
+    	string changedBy FK
+    	string changeReason
+    	json stateMetadata
+    	boolean isSystemInitiated
+	}
+
+	WorkflowInstance {
+    	string id PK
+    	string workflowType "PROVISIONING|DEPROVISIONING|ACCESS_REQUEST|CERTIFICATION"
+    	string entityId FK
+    	string status "RUNNING|COMPLETED|FAILED|CANCELLED"
+    	datetime startedAt
+    	datetime completedAt
+    	string initiatedBy FK
+    	json workflowData
+    	string currentStep
+    	json stepHistory
+	}
+
+	Approval {
+    	string id PK
+    	string workflowInstanceId FK
+    	string approverEntityId FK
+    	string status "PENDING|APPROVED|REJECTED|DELEGATED"
+    	datetime approvedAt
+    	string comments
+    	boolean isDelegated
+    	string delegatedTo FK
+    	int approvalOrder
+    	json approvalMetadata
+	}
+
+	%% Monitoring & Audit
+	AuditEvent {
+    	string id PK
+    	string entityId FK
+    	string eventType
+    	string action
+    	string resource
+    	datetime timestamp
+    	string sourceIp
+    	string userAgent
+    	string result "SUCCESS|FAILURE|PARTIAL"
+    	json eventData
+    	string correlationId
+    	string sessionId FK
+	}
+
+	RiskAssessment {
+    	string id PK
+    	string entityId FK
+    	float riskScore
+    	string riskLevel "LOW|MEDIUM|HIGH|CRITICAL"
+    	json riskFactors
+    	datetime assessedAt
+    	string assessmentType "LOGIN|ACCESS|BEHAVIORAL|PERIODIC"
+    	json mitigationActions
+    	boolean requiresReview
+	}
+
+	Attestation {
+    	string id PK
+    	string entityId FK
+    	string attestationType "ACCESS_REVIEW|ROLE_REVIEW|RISK_REVIEW"
+    	string status "PENDING|COMPLETED|OVERDUE"
+    	datetime dueDate
+    	datetime completedAt
+    	string attestedBy FK
+    	string decision "APPROVED|REVOKED|MODIFIED"
+    	string comments
+    	json attestationData
+	}
+
+	%% Group & Organizational Structure
+	Group {
+    	string id PK
+    	string name
+    	string groupType "DEPARTMENT|TEAM|PROJECT|SECURITY|FUNCTIONAL"
+    	string description
+    	string parentGroup FK
+    	string owner FK
+    	boolean isDynamic
+    	json membershipRules
+    	string tenantId FK
+    	datetime createdAt
+	}
+
+	Tenant {
+    	string id PK
+    	string name
+    	string domain
+    	string tenantType "ORGANIZATION|DEPARTMENT|ENVIRONMENT"
+    	json configuration
+    	boolean isActive
+    	datetime createdAt
+    	string parentTenant FK
+	}
+
+	%% Integration & Federation
+	IdentityProvider {
+    	string id PK
+    	string name
+    	string providerType "SAML|OIDC|LDAP|AD|CUSTOM"
+    	string endpoint
+    	json configuration
+    	boolean isActive
+    	string tenantId FK
+    	json attributeMapping
+    	string priority
+	}
+
+	SyncJob {
+    	string id PK
+    	string identityProviderId FK
+    	string status "RUNNING|COMPLETED|FAILED|SCHEDULED"
+    	datetime startedAt
+    	datetime completedAt
+    	int recordsProcessed
+    	int recordsSuccess
+    	int recordsError
+    	json errorDetails
+    	string jobType "FULL|INCREMENTAL|DELTA"
+	}
+
+	%% Relationships
+	Entity ||--o{ HumanIdentity : "is-a"
+	Entity ||--o{ ServiceIdentity : "is-a"
+	Entity ||--o{ DeviceIdentity : "is-a"
+	Entity ||--o{ ApiIdentity : "is-a"
+    
+	Entity ||--o{ Credential : "has"
+	Credential ||--o{ Certificate : "extends"
+	Credential ||--o{ ApiKey : "extends"
+    
+	Entity ||--o{ AccessGrant : "has"
+	Entity ||--o{ Session : "creates"
+	Entity ||--o{ AuditEvent : "generates"
+	Entity ||--o{ RiskAssessment : "assessed"
+	Entity ||--o{ LifecycleState : "tracks"
+    
+	Role ||--o{ Permission : "contains"
+	Entity }o--o{ Role : "assigned"
+	Entity }o--o{ Group : "member-of"
+	Group }o--o{ Role : "has"
+    
+	Policy ||--o{ Permission : "governs"
+	Resource ||--o{ Application : "is-a"
+	AccessRequest ||--|| AccessGrant : "results-in"
+    
+	WorkflowInstance ||--o{ Approval : "requires"
+	Entity ||--o{ Attestation : "subject-of"
+    
+	Tenant ||--o{ Entity : "owns"
+	Tenant ||--o{ IdentityProvider : "configured"
+	IdentityProvider ||--o{ SyncJob : "executes"
+    
+	HumanIdentity ||--o{ HumanIdentity : "manages"
+	Group ||--o{ Group : "parent-child"
+	Tenant ||--o{ Tenant : "parent-child"
+
+ERD: https://claude.ai/public/artifacts/af557c7c-2a33-4b22-9228-cc5c5664db63
+
+Customize the model: https://claude.ai/chat/5e428696-b840-4b37-95c0-0f98f47032e2?artifactId=remixed-af557c7c 
