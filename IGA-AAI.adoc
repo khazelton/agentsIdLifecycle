@@ -1,5 +1,7 @@
 IGA-AAI.adoc
 
+Integrated management of authentication, authorization, and credentials for non-human identities
+
 3) AAI: Technical Implementation Patterns
 
 OAuth 2.0 + OIDC for Everything: Use OAuth for both human and machine authentication flows. Service-to-service communication uses client credentials flow, while humans use authorization code flow.
