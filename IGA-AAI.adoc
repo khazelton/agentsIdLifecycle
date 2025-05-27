@@ -1,8 +1,12 @@
 IGA-AAI.adoc
 
+<<<<<<< HEAD
 Please analyze the two uploaded documents and propose a new domain model that separates the concerns of Identity Governance Administration (IGA) and Authentication, Authorization, Identification, and Credentials
 
 Earlier findings
+=======
+Integrated management of authentication, authorization, and credentials for human and non-human identities
+>>>>>>> refs/remotes/origin/main
 
 3) AAI: Technical Implementation Patterns
 
