@@ -557,4 +557,1512 @@ ERDiagram
 
 ERD: https://claude.ai/public/artifacts/af557c7c-2a33-4b22-9228-cc5c5664db63
 
-Customize the model: https://claude.ai/chat/5e428696-b840-4b37-95c0-0f98f47032e2?artifactId=remixed-af557c7c 
+- - -
+
+PROMPT: revise the domain model to reflect the separation of concerns between IGA AND AAIEditI'll revise the domain model to clearly reflect the separation of concerns between IGA (Identity Lifecycle Governance) and AAI (Authentication, Authorization, and Identity), showing how they integrate while maintaining distinct responsibilities.IGA/AAI Separated Domain ModelDiagram IGA/AAI Separated Domain 
+
+Model Analysis
+
+Key Architectural Changes
+1. Clear Domain Separation
+The revised model creates distinct domains while maintaining necessary integration points:
+
+IGA Domain (Identity Lifecycle Governance):
+
+IGAEntity: Governance-focused view of identities with business context
+Lifecycle management, attestations, and compliance workflows
+Business ownership and organizational structure
+
+AAI Domain (Authentication, Authorization, Identity):
+
+AAIEntity: Security-focused view with authentication and authorization context
+Credentials, sessions, and real-time access decisions
+Technical security controls and risk assessment
+
+2. Shared Core Foundation
+The Entity serves as the integration point between domains:
+
+Single Source of Truth: Core identity information
+Cross-Domain References: Links to both IGA and AAI representations
+Unified Audit Trail: Comprehensive tracking across both domains
+
+Domain-Specific Enhancements
+IGA Domain Improvements
+Enhanced Governance Structure:
+
+AttestationCampaign: Organized compliance review cycles
+GroupMembership: Explicit membership tracking with justification
+Business Context: Owner attribution and business purpose tracking
+
+Workflow Sophistication:
+
+Priority-based Processing: SLA management for critical workflows
+Approval Chain Management: Complex approval hierarchies
+Change Attribution: Clear audit trails for all lifecycle changes
+
+AAI Domain Improvements
+
+Advanced Authentication:
+
+MFADevice: Comprehensive multi-factor authentication support
+Risk-based Authentication: Dynamic authentication requirements
+Credential Strength: Quantified security measures
+
+Sophisticated Authorization:
+
+PolicyEvaluation: Real-time policy decision tracking
+RoleAssignment: Detailed role management with constraints
+Context-aware Decisions: Session and environmental context
+
+Enhanced Security:
+
+SecurityEvent: Comprehensive security event tracking
+Anomaly Detection: Built-in anomaly flags
+Real-time Risk Assessment: Dynamic risk scoring
+
+Integration Patterns
+
+Cross-Domain Workflows
+
+Identity Provisioning: IGA initiates → AAI implements credentials
+Access Requests: IGA approves → AAI grants access
+Risk Events: AAI detects → IGA triggers review workflows
+Compliance: IGA requires attestation → AAI provides access evidence
+
+Shared Responsibilities
+
+Risk Assessment: Both domains contribute risk factors
+Audit Events: Unified audit trail with domain attribution
+Resource Management: Business (IGA) and technical (AAI) ownership
+
+Benefits of This Separation
+1. Specialized Optimization
+
+IGA: Optimized for human workflows, approval processes, compliance reporting
+AAI: Optimized for high-performance authentication, real-time authorization decisions
+
+2. Independent Scaling
+
+IGA: Scales with organizational size and complexity
+AAI: Scales with transaction volume and authentication requests
+
+3. Technology Independence
+
+IGA: Can use workflow engines, business process management tools
+AAI: Can use high-performance security engines, policy decision points
+
+4. Team Specialization
+
+IGA Teams: Focus on governance, compliance, business processes
+AAI Teams: Focus on security, performance, technical integration
+
+Implementation Strategy
+Phase 1: Core Foundation
+
+Implement shared Entity and Tenant models
+Build basic IGAEntity and AAIEntity structures
+Establish cross-domain synchronization
+
+Phase 2: IGA Implementation
+
+Implement workflow and approval systems
+Build attestation and compliance frameworks
+Develop organizational structure management
+
+Phase 3: AAI Implementation
+
+Build authentication and credential management
+Implement authorization engine and policy evaluation
+Develop security monitoring and risk assessment
+
+Phase 4: Integration and Optimization
+
+Optimize cross-domain workflows
+Implement advanced analytics and reporting
+
+- - -
+
+Prompt: please analyze the two uploaded documents and propose a new domain model that separates the concerns of Identity Governance Administration (IGA) and Authentication, Authorization, Identification, and Credentials
+
+
+I'll analyze the uploaded documents and propose a refined domain model that clearly separates IGA and AAI concerns while maintaining their necessary integration points.
+
+
+IGA/AAI Separated Domain Model
+
+Based on my analysis of the uploaded documents, I've created a refined domain model that clearly separates Identity Governance Administration (IGA) and Authentication, Authorization, and Identity (AAI) concerns while maintaining necessary integration points. Here's my comprehensive analysis and recommendations:
+
+Key Architectural Principles
+
+1. Clear Domain Separation
+The model creates distinct domains with specific responsibilities:
+
+IGA Domain (Identity Governance & Administration):
+
+Business-focused identity lifecycle management
+Compliance, attestation, and governance workflows
+Organizational structure and business context
+Access requests and approval processes
+Risk management from a business perspective
+
+AAI Domain (Authentication, Authorization, Identity & Credentials):
+
+Technical security implementation
+Real-time authentication and authorization
+Credential management and security controls
+Session management and security monitoring
+Risk assessment from a security perspective
+2. Shared Foundation
+Entity: Core identity record serving as integration point
+Tenant: Multi-tenancy support across both domains
+Resource: Shared resource definitions
+AuditEvent: Unified audit trail with domain attribution
+Domain-Specific Enhancements
+
+IGA Domain Improvements
+Enhanced Governance: IGAEntity captures business context, compliance scope, and governance status
+Sophisticated Workflows: Priority-based processing, SLA management, and complex approval chains
+Comprehensive Compliance: AttestationCampaign and PolicyViolation for systematic compliance management
+Business Context: Clear business ownership and justification tracking
+
+AAI Domain Improvements
+Advanced Authentication: MFADevice support, credential strength scoring, and authentication status tracking
+Real-time Authorization: PolicyEvaluation tracking and context-aware access decisions
+Enhanced Security: SecurityEvent with anomaly detection and risk contribution scoring
+Session Intelligence: Comprehensive session management with risk scoring and context tracking
+
+Integration Patterns
+
+Cross-Domain Workflows
+Identity Provisioning: IGA initiates → AAI implements credentials
+Access Requests: IGA approves → AAI grants access
+Security Events: AAI detects → IGA triggers governance workflows
+Compliance Reviews: IGA requires attestation → AAI provides access evidence
+
+Synchronization Mechanisms
+SyncEvent: Tracks cross-domain data synchronization
+Shared Audit Trail: Unified logging with domain attribution
+Identity Provider Integration: Configurable for IGA, AAI, or both domains
+
+Benefits of This Separation
+
+1. Specialized Optimization
+IGA: Optimized for human workflows, business processes, compliance reporting
+AAI: Optimized for high-performance, real-time security decisions
+2. Independent Scaling
+IGA: Scales with organizational complexity and governance requirements
+AAI: Scales with authentication volume and security transaction load
+3. Technology Independence
+IGA: Can leverage workflow engines, BPM tools, compliance platforms
+AAI: Can utilize high-performance security engines, policy decision points
+4. Team Specialization
+IGA Teams: Focus on governance, compliance, business processes
+AAI Teams: Focus on security architecture, performance, technical integration
+
+Implementation Recommendations
+
+Phase 1: Foundation (Months 1-3)
+
+Implement shared Entity, Tenant, and Resource models
+Build basic IGAEntity and AAIEntity structures
+Establish cross-domain synchronization framework
+
+Phase 2: IGA Implementation (Months 4-8)
+Deploy workflow and approval systems
+Build attestation and compliance frameworks
+Implement organizational structure management
+Integrate with existing HR and business systems
+
+Phase 3: AAI Implementation (Months 6-10)
+Build authentication and credential management
+Implement authorization engine and policy evaluation
+Deploy security monitoring and risk assessment
+Integrate with existing security infrastructure
+
+Phase 4: Integration & Optimization (Months 9-12)
+Optimize cross-domain workflows
+Implement advanced analytics and reporting
+Fine-tune performance and security controls
+Deploy comprehensive monitoring and alerting
+
+This separation enables organizations to build specialized, high-performance systems for each domain while maintaining the integration necessary for comprehensive identity management across human and non-human entities.
+
+ERD: https://claude.ai/public/artifacts/b84cc87e-b5aa-4bc6-ae37-6469858a5fce 
+
+erDiagram
+    %% ============================================
+    %% SHARED CORE FOUNDATION
+    %% ============================================
+    
+    Entity {
+        string id PK
+        string entityType "HUMAN|SERVICE|DEVICE|API|BOT"
+        string status "ACTIVE|INACTIVE|SUSPENDED|EXPIRED"
+        datetime createdAt
+        datetime updatedAt
+        string tenantId FK
+        json metadata
+    }
+    
+    Tenant {
+        string id PK
+        string name
+        string domain
+        string tenantType "ORGANIZATION|DEPARTMENT|ENVIRONMENT"
+        json configuration
+        boolean isActive
+        datetime createdAt
+        string parentTenant FK
+    }
+    
+    Resource {
+        string id PK
+        string name
+        string resourceType "APPLICATION|DATABASE|API|FILE|SYSTEM"
+        string description
+        string sensitivity "PUBLIC|INTERNAL|CONFIDENTIAL|RESTRICTED"
+        string tenantId FK
+        json resourceMetadata
+    }
+    
+    %% ============================================
+    %% IGA DOMAIN - Identity Governance & Administration
+    %% ============================================
+    
+    IGAEntity {
+        string entityId PK,FK
+        string businessOwner FK
+        string businessPurpose
+        string dataClassification
+        string complianceScope
+        datetime lastGovernanceReview
+        boolean requiresAttestation
+        json businessContext
+        string governanceStatus "COMPLIANT|NON_COMPLIANT|UNDER_REVIEW"
+    }
+    
+    HumanIdentity {
+        string entityId PK,FK
+        string firstName
+        string lastName
+        string email
+        string employeeId
+        string department
+        string jobTitle
+        string manager FK
+        date startDate
+        date endDate
+        boolean isContractor
+        string costCenter
+        string location
+        json personalAttributes
+    }
+    
+    ServiceIdentity {
+        string entityId PK,FK
+        string serviceName
+        string serviceType "API|MICROSERVICE|LAMBDA|BATCH_JOB"
+        string environment "DEV|STAGING|PROD"
+        string applicationId FK
+        string ownerTeam
+        string businessCriticality "LOW|MEDIUM|HIGH|CRITICAL"
+        json serviceMetadata
+    }
+    
+    DeviceIdentity {
+        string entityId PK,FK
+        string deviceName
+        string deviceType "IOT|MOBILE|LAPTOP|SERVER"
+        string assignedTo FK
+        string location
+        string assetTag
+        string businessUnit
+        json deviceAttributes
+    }
+    
+    ApiIdentity {
+        string entityId PK,FK
+        string apiName
+        string version
+        string endpoint
+        string documentation
+        string ownerService FK
+        boolean isPublic
+        string supportLevel
+        json apiMetadata
+    }
+    
+    %% IGA Governance Structures
+    Group {
+        string id PK
+        string name
+        string groupType "DEPARTMENT|TEAM|PROJECT|SECURITY|FUNCTIONAL"
+        string description
+        string parentGroup FK
+        string businessOwner FK
+        boolean isDynamic
+        json membershipRules
+        string tenantId FK
+        datetime createdAt
+    }
+    
+    GroupMembership {
+        string id PK
+        string groupId FK
+        string entityId FK
+        datetime assignedAt
+        datetime expiresAt
+        string assignedBy FK
+        string justification
+        boolean isInherited
+        string membershipSource "MANUAL|AUTOMATIC|INHERITED"
+    }
+    
+    Role {
+        string id PK
+        string name
+        string description
+        string roleType "BUSINESS|TECHNICAL|ADMINISTRATIVE"
+        string businessOwner FK
+        string riskLevel "LOW|MEDIUM|HIGH|CRITICAL"
+        boolean requiresApproval
+        string tenantId FK
+        json roleMetadata
+        datetime createdAt
+    }
+    
+    RoleAssignment {
+        string id PK
+        string roleId FK
+        string entityId FK
+        datetime assignedAt
+        datetime expiresAt
+        string assignedBy FK
+        string justification
+        string assignmentSource "MANUAL|WORKFLOW|INHERITANCE"
+        json assignmentConditions
+    }
+    
+    %% IGA Workflow & Lifecycle Management
+    WorkflowInstance {
+        string id PK
+        string workflowType "PROVISIONING|DEPROVISIONING|ACCESS_REQUEST|CERTIFICATION|ROLE_CHANGE"
+        string entityId FK
+        string status "PENDING|RUNNING|COMPLETED|FAILED|CANCELLED"
+        int priority "1-5"
+        datetime startedAt
+        datetime slaTarget
+        datetime completedAt
+        string initiatedBy FK
+        json workflowData
+        string currentStep
+        json stepHistory
+    }
+    
+    Approval {
+        string id PK
+        string workflowInstanceId FK
+        string approverEntityId FK
+        string status "PENDING|APPROVED|REJECTED|DELEGATED|ESCALATED"
+        datetime approvedAt
+        string comments
+        boolean isDelegated
+        string delegatedTo FK
+        int approvalOrder
+        datetime escalationTime
+        json approvalMetadata
+    }
+    
+    AccessRequest {
+        string id PK
+        string requesterId FK
+        string resourceId FK
+        string accessType
+        string businessJustification
+        string status "PENDING|APPROVED|REJECTED|EXPIRED|CANCELLED"
+        datetime requestedAt
+        datetime approvedAt
+        string approvedBy FK
+        datetime expiresAt
+        boolean isEmergency
+        string riskAssessment
+        json requestMetadata
+    }
+    
+    %% IGA Compliance & Attestation
+    AttestationCampaign {
+        string id PK
+        string name
+        string campaignType "ACCESS_REVIEW|ROLE_REVIEW|SOD_REVIEW|RISK_REVIEW"
+        string description
+        datetime startDate
+        datetime endDate
+        string status "PLANNED|ACTIVE|COMPLETED|OVERDUE"
+        string scope
+        string tenantId FK
+        json campaignConfig
+    }
+    
+    Attestation {
+        string id PK
+        string campaignId FK
+        string entityId FK
+        string attestationType "ACCESS_REVIEW|ROLE_REVIEW|RISK_REVIEW"
+        string status "PENDING|COMPLETED|OVERDUE|ESCALATED"
+        datetime dueDate
+        datetime completedAt
+        string attestedBy FK
+        string decision "APPROVED|REVOKED|MODIFIED|EXCEPTION"
+        string comments
+        json evidenceData
+        json attestationData
+    }
+    
+    PolicyViolation {
+        string id PK
+        string entityId FK
+        string violationType "SOD|EXCESSIVE_ACCESS|DORMANT_ACCOUNT|POLICY_BREACH"
+        string severity "LOW|MEDIUM|HIGH|CRITICAL"
+        string description
+        datetime detectedAt
+        datetime resolvedAt
+        string status "OPEN|IN_PROGRESS|RESOLVED|ACCEPTED_RISK"
+        string assignedTo FK
+        json violationDetails
+    }
+    
+    %% ============================================
+    %% AAI DOMAIN - Authentication, Authorization & Identity
+    %% ============================================
+    
+    AAIEntity {
+        string entityId PK,FK
+        datetime lastAccessAt
+        string securityLevel "LOW|MEDIUM|HIGH|MAXIMUM"
+        float currentRiskScore
+        string authenticationStrength "WEAK|MEDIUM|STRONG|MAXIMUM"
+        boolean mfaEnabled
+        int failedLoginAttempts
+        datetime lastPasswordChange
+        json securityContext
+        string authenticationStatus "ACTIVE|LOCKED|SUSPENDED|EXPIRED"
+    }
+    
+    %% AAI Authentication & Credentials
+    Credential {
+        string id PK
+        string entityId FK
+        string credentialType "PASSWORD|CERTIFICATE|API_KEY|TOKEN|BIOMETRIC|MFA_DEVICE"
+        string status "ACTIVE|EXPIRED|REVOKED|PENDING|COMPROMISED"
+        datetime createdAt
+        datetime expiresAt
+        datetime lastRotated
+        string hashedValue
+        int strengthScore "0-100"
+        boolean requiresRotation
+        int rotationDays
+        json credentialMetadata
+    }
+    
+    Certificate {
+        string credentialId PK,FK
+        string serialNumber
+        string issuer
+        string subject
+        datetime validFrom
+        datetime validTo
+        string algorithm
+        int keySize
+        string certificateChain
+        boolean isRevoked
+        string revocationReason
+        datetime revokedAt
+    }
+    
+    ApiKey {
+        string credentialId PK,FK
+        string keyPrefix
+        string[] allowedScopes
+        string description
+        int usageCount
+        int maxUsage
+        datetime lastUsed
+        string[] ipWhitelist
+        boolean isRateLimited
+        int rateLimit
+        string keyStrength
+    }
+    
+    MFADevice {
+        string credentialId PK,FK
+        string deviceType "TOTP|SMS|PUSH|HARDWARE_TOKEN|BIOMETRIC"
+        string deviceIdentifier
+        boolean isActive
+        datetime lastUsed
+        int successfulUses
+        int failedUses
+        datetime enrolledAt
+        json deviceMetadata
+    }
+    
+    %% AAI Authorization Framework
+    Permission {
+        string id PK
+        string resource
+        string action
+        string effect "ALLOW|DENY"
+        json conditions
+        string description
+        boolean isSystem
+        string tenantId FK
+        string contextRequirements
+    }
+    
+    Policy {
+        string id PK
+        string name
+        string description
+        string policyType "ABAC|RBAC|CUSTOM|CONTEXTUAL"
+        json rules
+        string effect "ALLOW|DENY"
+        boolean isActive
+        datetime effectiveFrom
+        datetime effectiveTo
+        string tenantId FK
+        string version
+        int priority
+    }
+    
+    PolicyEvaluation {
+        string id PK
+        string policyId FK
+        string entityId FK
+        string resourceId FK
+        string action
+        string decision "ALLOW|DENY|NOT_APPLICABLE"
+        json evaluationContext
+        datetime evaluatedAt
+        int evaluationTime
+        string sessionId FK
+    }
+    
+    AccessGrant {
+        string id PK
+        string entityId FK
+        string resourceId FK
+        string accessType
+        datetime grantedAt
+        datetime expiresAt
+        string grantedBy FK
+        string grantSource "POLICY|ROLE|DIRECT|EMERGENCY"
+        boolean isTemporary
+        json grantConditions
+        string status "ACTIVE|EXPIRED|REVOKED|SUSPENDED"
+    }
+    
+    %% AAI Session & Context Management
+    Session {
+        string id PK
+        string entityId FK
+        string sessionType "WEB|API|SERVICE|MOBILE"
+        datetime startTime
+        datetime lastActivity
+        datetime expiresAt
+        string sourceIp
+        string userAgent
+        string location
+        json contextData
+        boolean isActive
+        string terminationReason
+        float riskScore
+    }
+    
+    SecurityEvent {
+        string id PK
+        string entityId FK
+        string eventType "AUTHENTICATION|AUTHORIZATION|ANOMALY|VIOLATION"
+        string eventCategory "SUCCESS|FAILURE|SUSPICIOUS|BLOCKED"
+        string action
+        string resource
+        datetime timestamp
+        string sourceIp
+        string userAgent
+        string result "SUCCESS|FAILURE|BLOCKED"
+        json eventData
+        string correlationId
+        string sessionId FK
+        boolean isAnomaly
+        float riskContribution
+    }
+    
+    RiskAssessment {
+        string id PK
+        string entityId FK
+        float riskScore
+        string riskLevel "LOW|MEDIUM|HIGH|CRITICAL"
+        json riskFactors
+        datetime assessedAt
+        string assessmentType "LOGIN|ACCESS|BEHAVIORAL|PERIODIC|CONTINUOUS"
+        json mitigationActions
+        boolean requiresAction
+        string assessmentEngine
+        json contextFactors
+    }
+    
+    %% AAI Application Integration
+    Application {
+        string resourceId PK,FK
+        string applicationName
+        string applicationUrl
+        string applicationType "WEB|MOBILE|DESKTOP|API|SERVICE"
+        string[] supportedProtocols
+        boolean ssoEnabled
+        string authenticationMethod "SAML|OIDC|LDAP|CUSTOM"
+        json ssoConfiguration
+        string healthStatus
+        datetime lastHealthCheck
+        json integrationMetadata
+    }
+    
+    %% ============================================
+    %% CROSS-DOMAIN INTEGRATION
+    %% ============================================
+    
+    %% Shared Audit Trail
+    AuditEvent {
+        string id PK
+        string entityId FK
+        string domain "IGA|AAI|SHARED"
+        string eventType
+        string action
+        string resource
+        datetime timestamp
+        string sourceSystem
+        string initiatedBy FK
+        string result "SUCCESS|FAILURE|PARTIAL"
+        json eventData
+        string correlationId
+        string sessionId FK
+        json businessContext
+    }
+    
+    %% Cross-Domain Synchronization
+    SyncEvent {
+        string id PK
+        string sourceSystem "IGA|AAI"
+        string targetSystem "IGA|AAI"
+        string eventType "CREATE|UPDATE|DELETE|SYNC"
+        string entityId FK
+        json changeData
+        datetime processedAt
+        string status "PENDING|COMPLETED|FAILED|RETRY"
+        string errorMessage
+        int retryCount
+    }
+    
+    %% External Integration
+    IdentityProvider {
+        string id PK
+        string name
+        string providerType "SAML|OIDC|LDAP|AD|CUSTOM"
+        string endpoint
+        json configuration
+        boolean isActive
+        string tenantId FK
+        json attributeMapping
+        int priority
+        string domain "IGA|AAI|BOTH"
+    }
+    
+    SyncJob {
+        string id PK
+        string identityProviderId FK
+        string targetDomain "IGA|AAI|BOTH"
+        string status "RUNNING|COMPLETED|FAILED|SCHEDULED"
+        datetime startedAt
+        datetime completedAt
+        int recordsProcessed
+        int recordsSuccess
+        int recordsError
+        json errorDetails
+        string jobType "FULL|INCREMENTAL|DELTA"
+    }
+    
+    %% ============================================
+    %% RELATIONSHIPS
+    %% ============================================
+    
+    %% Core Entity Relationships
+    Entity ||--|| IGAEntity : "has governance"
+    Entity ||--|| AAIEntity : "has security"
+    Entity ||--o{ HumanIdentity : "is-a"
+    Entity ||--o{ ServiceIdentity : "is-a"
+    Entity ||--o{ DeviceIdentity : "is-a"
+    Entity ||--o{ ApiIdentity : "is-a"
+    
+    %% IGA Domain Relationships
+    IGAEntity ||--o{ GroupMembership : "member of"
+    IGAEntity ||--o{ RoleAssignment : "assigned"
+    IGAEntity ||--o{ WorkflowInstance : "subject of"
+    IGAEntity ||--o{ AccessRequest : "requests"
+    IGAEntity ||--o{ Attestation : "attested"
+    IGAEntity ||--o{ PolicyViolation : "violates"
+    
+    Group ||--o{ GroupMembership : "contains"
+    Role ||--o{ RoleAssignment : "assigned to"
+    WorkflowInstance ||--o{ Approval : "requires"
+    AttestationCampaign ||--o{ Attestation : "contains"
+    
+    %% AAI Domain Relationships
+    AAIEntity ||--o{ Credential : "has"
+    AAIEntity ||--o{ Session : "creates"
+    AAIEntity ||--o{ SecurityEvent : "generates"
+    AAIEntity ||--o{ RiskAssessment : "assessed"
+    AAIEntity ||--o{ AccessGrant : "granted"
+    AAIEntity ||--o{ PolicyEvaluation : "evaluated"
+    
+    Credential ||--o{ Certificate : "extends"
+    Credential ||--o{ ApiKey : "extends"
+    Credential ||--o{ MFADevice : "extends"
+    
+    Policy ||--o{ PolicyEvaluation : "evaluated by"
+    Policy ||--o{ Permission : "contains"
+    Resource ||--o{ Application : "is-a"
+    Session ||--o{ SecurityEvent : "contains"
+    
+    %% Cross-Domain Relationships
+    Entity ||--o{ AuditEvent : "generates"
+    Entity ||--o{ SyncEvent : "synchronized"
+    AccessRequest ||--o{ AccessGrant : "results in"
+    Tenant ||--o{ Entity : "owns"
+    Tenant ||--o{ IdentityProvider : "configured"
+    IdentityProvider ||--o{ SyncJob : "executes"
+
+    https://claude.ai/public/artifacts/38f2c448-b3e1-48cc-8b12-d41aa742430e <- ERD diagram of above
+
+- - -
+
+Prompt: represent this domain model as an owl ontology using the turtle format
+
+I'll create an OWL ontology in Turtle format that represents the IGA/AAI separated domain model. This will provide a formal semantic representation of the concepts and relationships.
+
+I'll create an OWL ontology in Turtle format that represents the IGA/AAI separated domain model. This will provide a formal semantic representation of the concepts and relationships.
+
+I've created a comprehensive OWL ontology in Turtle format that formally represents the IGA/AAI separated domain model. Here are the key features of this ontology:
+
+## **Ontology Structure**
+
+### **1. Three Main Namespaces**
+- **`core:`** - Shared foundation classes and properties
+- **`iga:`** - Identity Governance Administration domain  
+- **`aai:`** - Authentication, Authorization, Identity domain
+
+### **2. Formal Class Hierarchy**
+- **Base Classes**: `Entity`, `Tenant`, `Resource` as foundational concepts
+- **Domain Views**: `IGAEntity` and `AAIEntity` provide specialized views of entities
+- **Identity Types**: Formal subclasses for Human, Service, Device, and API identities
+- **Enumerations**: Controlled vocabularies using `owl:oneOf` for entity types, statuses, etc.
+
+### **3. Rich Property Definitions**
+- **Object Properties**: Relationships between classes (e.g., `hasGovernanceFor`, `hasCredential`)
+- **Data Properties**: Attributes with specific datatypes (e.g., `riskScore`, `employeeId`)
+- **Inverse Properties**: Bidirectional relationships for navigation
+- **Functional Properties**: Ensure unique relationships where appropriate
+
+### **4. Semantic Constraints**
+- **Disjoint Classes**: Prevent inappropriate class memberships
+- **Cardinality Restrictions**: Enforce one-to-one relationships where needed
+- **Domain/Range Restrictions**: Constrain property usage to appropriate classes
+- **Data Validation**: Range restrictions for numeric values (e.g., priority 1-5, strength score 0-100)
+
+## **Key Semantic Features**
+
+### **Domain Separation**
+```turtle
+iga:IGAEntity owl:disjointWith aai:AAIEntity .
+```
+This ensures entities have distinct governance and security views that don't overlap inappropriately.
+
+### **Entity Integration**
+```turtle
+iga:hasGovernanceFor owl:inverseOf iga:hasGovernanceView .
+aai:hasSecurityFor owl:inverseOf aai:hasSecurityView .
+```
+This creates formal bidirectional relationships between core entities and their domain-specific views.
+
+### **Type Safety**
+The ontology uses formal restrictions to ensure type safety:
+```turtle
+iga:HumanIdentity rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty iga:representsEntity ;
+    owl:allValuesFrom [
+        a owl:Restriction ;
+        owl:onProperty core:hasEntityType ;
+        owl:hasValue core:Human
+    ]
+] .
+```
+
+## **Benefits of This OWL Representation**
+
+### **1. Formal Semantics**
+- Enables automated reasoning and inference
+- Supports consistency checking and validation
+- Provides precise meaning for all concepts and relationships
+
+### **2. Interoperability**
+- Standard W3C format enables tool integration
+- Supports SPARQL queries for complex data retrieval
+- Enables semantic web integration
+
+### **3. Extensibility**
+- New domains can be added by extending base classes
+- Custom properties can be defined with proper constraints
+- Integration with external ontologies is supported
+
+### **4. Validation**
+- Automatic validation of data against the model
+- Detection of inconsistencies and constraint violations
+- Support for data quality assurance
+
+This ontology provides a solid foundation for implementing the IGA/AAI domain model with formal semantic guarantees, enabling both human understanding and machine processing of identity management concepts.
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix iga: <http://identity.org/ontology/iga#> .
+@prefix aai: <http://identity.org/ontology/aai#> .
+@prefix core: <http://identity.org/ontology/core#> .
+
+# ============================================
+# ONTOLOGY METADATA
+# ============================================
+
+<http://identity.org/ontology/identity-management> a owl:Ontology ;
+    dcterms:title "Integrated Identity Management Ontology" ;
+    dcterms:description "An ontology for Identity Governance Administration (IGA) and Authentication, Authorization, Identity (AAI) domains" ;
+    dcterms:creator "Identity Management System" ;
+    dcterms:created "2025-05-27"^^xsd:date ;
+    owl:versionInfo "1.0" .
+
+# ============================================
+# CORE FOUNDATION CLASSES
+# ============================================
+
+core:Entity a owl:Class ;
+    rdfs:label "Entity" ;
+    rdfs:comment "Base class for all identity entities in the system" .
+
+core:Tenant a owl:Class ;
+    rdfs:label "Tenant" ;
+    rdfs:comment "Organizational unit for multi-tenancy support" .
+
+core:Resource a owl:Class ;
+    rdfs:label "Resource" ;
+    rdfs:comment "Protected resource that requires access control" .
+
+# Entity Type Enumeration
+core:EntityType a owl:Class ;
+    rdfs:label "Entity Type" ;
+    owl:oneOf (core:Human core:Service core:Device core:API core:Bot) .
+
+core:Human a core:EntityType ;
+    rdfs:label "Human" .
+
+core:Service a core:EntityType ;
+    rdfs:label "Service" .
+
+core:Device a core:EntityType ;
+    rdfs:label "Device" .
+
+core:API a core:EntityType ;
+    rdfs:label "API" .
+
+core:Bot a core:EntityType ;
+    rdfs:label "Bot" .
+
+# Status Enumeration
+core:EntityStatus a owl:Class ;
+    rdfs:label "Entity Status" ;
+    owl:oneOf (core:Active core:Inactive core:Suspended core:Expired) .
+
+core:Active a core:EntityStatus ;
+    rdfs:label "Active" .
+
+core:Inactive a core:EntityStatus ;
+    rdfs:label "Inactive" .
+
+core:Suspended a core:EntityStatus ;
+    rdfs:label "Suspended" .
+
+core:Expired a core:EntityStatus ;
+    rdfs:label "Expired" .
+
+# ============================================
+# IGA DOMAIN CLASSES
+# ============================================
+
+iga:IGAEntity a owl:Class ;
+    rdfs:label "IGA Entity" ;
+    rdfs:comment "Governance view of an entity with business context" ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty iga:hasGovernanceFor ;
+        owl:someValuesFrom core:Entity
+    ] .
+
+iga:HumanIdentity a owl:Class ;
+    rdfs:label "Human Identity" ;
+    rdfs:comment "Identity attributes for human entities" ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty iga:representsEntity ;
+        owl:allValuesFrom [
+            a owl:Restriction ;
+            owl:onProperty core:hasEntityType ;
+            owl:hasValue core:Human
+        ]
+    ] .
+
+iga:ServiceIdentity a owl:Class ;
+    rdfs:label "Service Identity" ;
+    rdfs:comment "Identity attributes for service entities" ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty iga:representsEntity ;
+        owl:allValuesFrom [
+            a owl:Restriction ;
+            owl:onProperty core:hasEntityType ;
+            owl:hasValue core:Service
+        ]
+    ] .
+
+iga:DeviceIdentity a owl:Class ;
+    rdfs:label "Device Identity" ;
+    rdfs:comment "Identity attributes for device entities" ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty iga:representsEntity ;
+        owl:allValuesFrom [
+            a owl:Restriction ;
+            owl:onProperty core:hasEntityType ;
+            owl:hasValue core:Device
+        ]
+    ] .
+
+iga:ApiIdentity a owl:Class ;
+    rdfs:label "API Identity" ;
+    rdfs:comment "Identity attributes for API entities" ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty iga:representsEntity ;
+        owl:allValuesFrom [
+            a owl:Restriction ;
+            owl:onProperty core:hasEntityType ;
+            owl:hasValue core:API
+        ]
+    ] .
+
+# IGA Governance Structures
+iga:Group a owl:Class ;
+    rdfs:label "Group" ;
+    rdfs:comment "Collection of entities for governance purposes" .
+
+iga:GroupMembership a owl:Class ;
+    rdfs:label "Group Membership" ;
+    rdfs:comment "Relationship between entity and group" .
+
+iga:Role a owl:Class ;
+    rdfs:label "Role" ;
+    rdfs:comment "Business role with associated permissions" .
+
+iga:RoleAssignment a owl:Class ;
+    rdfs:label "Role Assignment" ;
+    rdfs:comment "Assignment of role to entity" .
+
+# IGA Workflow Classes
+iga:WorkflowInstance a owl:Class ;
+    rdfs:label "Workflow Instance" ;
+    rdfs:comment "Instance of a governance workflow" .
+
+iga:Approval a owl:Class ;
+    rdfs:label "Approval" ;
+    rdfs:comment "Approval step in workflow" .
+
+iga:AccessRequest a owl:Class ;
+    rdfs:label "Access Request" ;
+    rdfs:comment "Request for access to resources" .
+
+# IGA Compliance Classes
+iga:AttestationCampaign a owl:Class ;
+    rdfs:label "Attestation Campaign" ;
+    rdfs:comment "Organized compliance review cycle" .
+
+iga:Attestation a owl:Class ;
+    rdfs:label "Attestation" ;
+    rdfs:comment "Individual attestation within campaign" .
+
+iga:PolicyViolation a owl:Class ;
+    rdfs:label "Policy Violation" ;
+    rdfs:comment "Detected policy or compliance violation" .
+
+# IGA Enumerations
+iga:GroupType a owl:Class ;
+    rdfs:label "Group Type" ;
+    owl:oneOf (iga:Department iga:Team iga:Project iga:Security iga:Functional) .
+
+iga:RoleType a owl:Class ;
+    rdfs:label "Role Type" ;
+    owl:oneOf (iga:Business iga:Technical iga:Administrative) .
+
+iga:WorkflowType a owl:Class ;
+    rdfs:label "Workflow Type" ;
+    owl:oneOf (iga:Provisioning iga:Deprovisioning iga:AccessRequest iga:Certification iga:RoleChange) .
+
+iga:AttestationType a owl:Class ;
+    rdfs:label "Attestation Type" ;
+    owl:oneOf (iga:AccessReview iga:RoleReview iga:RiskReview) .
+
+# ============================================
+# AAI DOMAIN CLASSES
+# ============================================
+
+aai:AAIEntity a owl:Class ;
+    rdfs:label "AAI Entity" ;
+    rdfs:comment "Security view of an entity with authentication context" ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty aai:hasSecurityFor ;
+        owl:someValuesFrom core:Entity
+    ] .
+
+# AAI Authentication & Credentials
+aai:Credential a owl:Class ;
+    rdfs:label "Credential" ;
+    rdfs:comment "Authentication credential for entity" .
+
+aai:Certificate a owl:Class ;
+    rdfs:label "Certificate" ;
+    rdfs:comment "X.509 certificate credential" ;
+    rdfs:subClassOf aai:Credential .
+
+aai:ApiKey a owl:Class ;
+    rdfs:label "API Key" ;
+    rdfs:comment "API key credential" ;
+    rdfs:subClassOf aai:Credential .
+
+aai:MFADevice a owl:Class ;
+    rdfs:label "MFA Device" ;
+    rdfs:comment "Multi-factor authentication device" ;
+    rdfs:subClassOf aai:Credential .
+
+# AAI Authorization Framework
+aai:Permission a owl:Class ;
+    rdfs:label "Permission" ;
+    rdfs:comment "Specific permission for resource action" .
+
+aai:Policy a owl:Class ;
+    rdfs:label "Policy" ;
+    rdfs:comment "Authorization policy for access control" .
+
+aai:PolicyEvaluation a owl:Class ;
+    rdfs:label "Policy Evaluation" ;
+    rdfs:comment "Result of policy evaluation" .
+
+aai:AccessGrant a owl:Class ;
+    rdfs:label "Access Grant" ;
+    rdfs:comment "Granted access to resource" .
+
+# AAI Session & Context
+aai:Session a owl:Class ;
+    rdfs:label "Session" ;
+    rdfs:comment "Authentication session" .
+
+aai:SecurityEvent a owl:Class ;
+    rdfs:label "Security Event" ;
+    rdfs:comment "Security-related event" .
+
+aai:RiskAssessment a owl:Class ;
+    rdfs:label "Risk Assessment" ;
+    rdfs:comment "Security risk assessment" .
+
+# AAI Application Integration
+aai:Application a owl:Class ;
+    rdfs:label "Application" ;
+    rdfs:comment "Integrated application" ;
+    rdfs:subClassOf core:Resource .
+
+# AAI Enumerations
+aai:CredentialType a owl:Class ;
+    rdfs:label "Credential Type" ;
+    owl:oneOf (aai:Password aai:Certificate aai:ApiKey aai:Token aai:Biometric aai:MFADevice) .
+
+aai:SessionType a owl:Class ;
+    rdfs:label "Session Type" ;
+    owl:oneOf (aai:Web aai:API aai:Service aai:Mobile) .
+
+aai:PolicyType a owl:Class ;
+    rdfs:label "Policy Type" ;
+    owl:oneOf (aai:ABAC aai:RBAC aai:Custom aai:Contextual) .
+
+# ============================================
+# CROSS-DOMAIN INTEGRATION CLASSES
+# ============================================
+
+core:AuditEvent a owl:Class ;
+    rdfs:label "Audit Event" ;
+    rdfs:comment "Auditable event across domains" .
+
+core:SyncEvent a owl:Class ;
+    rdfs:label "Sync Event" ;
+    rdfs:comment "Cross-domain synchronization event" .
+
+core:IdentityProvider a owl:Class ;
+    rdfs:label "Identity Provider" ;
+    rdfs:comment "External identity provider" .
+
+core:SyncJob a owl:Class ;
+    rdfs:label "Sync Job" ;
+    rdfs:comment "Identity synchronization job" .
+
+# ============================================
+# OBJECT PROPERTIES
+# ============================================
+
+# Core Properties
+core:hasEntityType a owl:ObjectProperty ;
+    rdfs:label "has entity type" ;
+    rdfs:domain core:Entity ;
+    rdfs:range core:EntityType .
+
+core:hasStatus a owl:ObjectProperty ;
+    rdfs:label "has status" ;
+    rdfs:domain core:Entity ;
+    rdfs:range core:EntityStatus .
+
+core:belongsToTenant a owl:ObjectProperty ;
+    rdfs:label "belongs to tenant" ;
+    rdfs:domain core:Entity ;
+    rdfs:range core:Tenant .
+
+core:hasParentTenant a owl:ObjectProperty ;
+    rdfs:label "has parent tenant" ;
+    rdfs:domain core:Tenant ;
+    rdfs:range core:Tenant .
+
+# IGA Properties
+iga:hasGovernanceFor a owl:ObjectProperty ;
+    rdfs:label "has governance for" ;
+    rdfs:domain iga:IGAEntity ;
+    rdfs:range core:Entity ;
+    owl:inverseOf iga:hasGovernanceView .
+
+iga:hasGovernanceView a owl:ObjectProperty ;
+    rdfs:label "has governance view" ;
+    rdfs:domain core:Entity ;
+    rdfs:range iga:IGAEntity .
+
+iga:representsEntity a owl:ObjectProperty ;
+    rdfs:label "represents entity" ;
+    rdfs:range core:Entity .
+
+iga:isMemberOf a owl:ObjectProperty ;
+    rdfs:label "is member of" ;
+    rdfs:domain core:Entity ;
+    rdfs:range iga:Group .
+
+iga:hasRole a owl:ObjectProperty ;
+    rdfs:label "has role" ;
+    rdfs:domain core:Entity ;
+    rdfs:range iga:Role .
+
+iga:hasBusinessOwner a owl:ObjectProperty ;
+    rdfs:label "has business owner" ;
+    rdfs:range core:Entity .
+
+iga:manages a owl:ObjectProperty ;
+    rdfs:label "manages" ;
+    rdfs:domain iga:HumanIdentity ;
+    rdfs:range iga:HumanIdentity .
+
+iga:hasApprover a owl:ObjectProperty ;
+    rdfs:label "has approver" ;
+    rdfs:domain iga:Approval ;
+    rdfs:range core:Entity .
+
+iga:subjectOfAttestation a owl:ObjectProperty ;
+    rdfs:label "subject of attestation" ;
+    rdfs:domain core:Entity ;
+    rdfs:range iga:Attestation .
+
+# AAI Properties
+aai:hasSecurityFor a owl:ObjectProperty ;
+    rdfs:label "has security for" ;
+    rdfs:domain aai:AAIEntity ;
+    rdfs:range core:Entity ;
+    owl:inverseOf aai:hasSecurityView .
+
+aai:hasSecurityView a owl:ObjectProperty ;
+    rdfs:label "has security view" ;
+    rdfs:domain core:Entity ;
+    rdfs:range aai:AAIEntity .
+
+aai:hasCredential a owl:ObjectProperty ;
+    rdfs:label "has credential" ;
+    rdfs:domain core:Entity ;
+    rdfs:range aai:Credential .
+
+aai:hasSession a owl:ObjectProperty ;
+    rdfs:label "has session" ;
+    rdfs:domain core:Entity ;
+    rdfs:range aai:Session .
+
+aai:hasPermission a owl:ObjectProperty ;
+    rdfs:label "has permission" ;
+    rdfs:domain core:Entity ;
+    rdfs:range aai:Permission .
+
+aai:isSubjectTo a owl:ObjectProperty ;
+    rdfs:label "is subject to" ;
+    rdfs:domain core:Entity ;
+    rdfs:range aai:Policy .
+
+aai:hasAccessTo a owl:ObjectProperty ;
+    rdfs:label "has access to" ;
+    rdfs:domain core:Entity ;
+    rdfs:range core:Resource .
+
+aai:evaluatedBy a owl:ObjectProperty ;
+    rdfs:label "evaluated by" ;
+    rdfs:domain aai:Policy ;
+    rdfs:range aai:PolicyEvaluation .
+
+# Cross-Domain Properties
+core:generatesAuditEvent a owl:ObjectProperty ;
+    rdfs:label "generates audit event" ;
+    rdfs:domain core:Entity ;
+    rdfs:range core:AuditEvent .
+
+core:synchronizedBy a owl:ObjectProperty ;
+    rdfs:label "synchronized by" ;
+    rdfs:domain core:Entity ;
+    rdfs:range core:SyncEvent .
+
+# ============================================
+# DATA PROPERTIES
+# ============================================
+
+# Core Data Properties
+core:entityId a owl:DatatypeProperty ;
+    rdfs:label "entity ID" ;
+    rdfs:domain core:Entity ;
+    rdfs:range xsd:string .
+
+core:createdAt a owl:DatatypeProperty ;
+    rdfs:label "created at" ;
+    rdfs:range xsd:dateTime .
+
+core:updatedAt a owl:DatatypeProperty ;
+    rdfs:label "updated at" ;
+    rdfs:range xsd:dateTime .
+
+core:name a owl:DatatypeProperty ;
+    rdfs:label "name" ;
+    rdfs:range xsd:string .
+
+core:description a owl:DatatypeProperty ;
+    rdfs:label "description" ;
+    rdfs:range xsd:string .
+
+# IGA Data Properties
+iga:firstName a owl:DatatypeProperty ;
+    rdfs:label "first name" ;
+    rdfs:domain iga:HumanIdentity ;
+    rdfs:range xsd:string .
+
+iga:lastName a owl:DatatypeProperty ;
+    rdfs:label "last name" ;
+    rdfs:domain iga:HumanIdentity ;
+    rdfs:range xsd:string .
+
+iga:email a owl:DatatypeProperty ;
+    rdfs:label "email" ;
+    rdfs:domain iga:HumanIdentity ;
+    rdfs:range xsd:string .
+
+iga:employeeId a owl:DatatypeProperty ;
+    rdfs:label "employee ID" ;
+    rdfs:domain iga:HumanIdentity ;
+    rdfs:range xsd:string .
+
+iga:department a owl:DatatypeProperty ;
+    rdfs:label "department" ;
+    rdfs:domain iga:HumanIdentity ;
+    rdfs:range xsd:string .
+
+iga:jobTitle a owl:DatatypeProperty ;
+    rdfs:label "job title" ;
+    rdfs:domain iga:HumanIdentity ;
+    rdfs:range xsd:string .
+
+iga:businessPurpose a owl:DatatypeProperty ;
+    rdfs:label "business purpose" ;
+    rdfs:domain iga:IGAEntity ;
+    rdfs:range xsd:string .
+
+iga:complianceScope a owl:DatatypeProperty ;
+    rdfs:label "compliance scope" ;
+    rdfs:domain iga:IGAEntity ;
+    rdfs:range xsd:string .
+
+iga:requiresAttestation a owl:DatatypeProperty ;
+    rdfs:label "requires attestation" ;
+    rdfs:domain iga:IGAEntity ;
+    rdfs:range xsd:boolean .
+
+iga:justification a owl:DatatypeProperty ;
+    rdfs:label "justification" ;
+    rdfs:range xsd:string .
+
+iga:priority a owl:DatatypeProperty ;
+    rdfs:label "priority" ;
+    rdfs:domain iga:WorkflowInstance ;
+    rdfs:range xsd:int .
+
+# AAI Data Properties
+aai:lastAccessAt a owl:DatatypeProperty ;
+    rdfs:label "last access at" ;
+    rdfs:domain aai:AAIEntity ;
+    rdfs:range xsd:dateTime .
+
+aai:securityLevel a owl:DatatypeProperty ;
+    rdfs:label "security level" ;
+    rdfs:domain aai:AAIEntity ;
+    rdfs:range xsd:string .
+
+aai:riskScore a owl:DatatypeProperty ;
+    rdfs:label "risk score" ;
+    rdfs:range xsd:float .
+
+aai:authenticationStrength a owl:DatatypeProperty ;
+    rdfs:label "authentication strength" ;
+    rdfs:domain aai:AAIEntity ;
+    rdfs:range xsd:string .
+
+aai:mfaEnabled a owl:DatatypeProperty ;
+    rdfs:label "MFA enabled" ;
+    rdfs:domain aai:AAIEntity ;
+    rdfs:range xsd:boolean .
+
+aai:failedLoginAttempts a owl:DatatypeProperty ;
+    rdfs:label "failed login attempts" ;
+    rdfs:domain aai:AAIEntity ;
+    rdfs:range xsd:int .
+
+aai:expiresAt a owl:DatatypeProperty ;
+    rdfs:label "expires at" ;
+    rdfs:range xsd:dateTime .
+
+aai:strengthScore a owl:DatatypeProperty ;
+    rdfs:label "strength score" ;
+    rdfs:domain aai:Credential ;
+    rdfs:range xsd:int .
+
+aai:usageCount a owl:DatatypeProperty ;
+    rdfs:label "usage count" ;
+    rdfs:range xsd:int .
+
+aai:sourceIp a owl:DatatypeProperty ;
+    rdfs:label "source IP" ;
+    rdfs:domain aai:Session ;
+    rdfs:range xsd:string .
+
+aai:userAgent a owl:DatatypeProperty ;
+    rdfs:label "user agent" ;
+    rdfs:domain aai:Session ;
+    rdfs:range xsd:string .
+
+aai:isActive a owl:DatatypeProperty ;
+    rdfs:label "is active" ;
+    rdfs:range xsd:boolean .
+
+aai:isAnomaly a owl:DatatypeProperty ;
+    rdfs:label "is anomaly" ;
+    rdfs:domain aai:SecurityEvent ;
+    rdfs:range xsd:boolean .
+
+# ============================================
+# AXIOMS AND CONSTRAINTS
+# ============================================
+
+# Disjoint Classes
+core:Entity owl:disjointWith core:Tenant, core:Resource .
+core:Tenant owl:disjointWith core:Resource .
+
+iga:IGAEntity owl:disjointWith aai:AAIEntity .
+
+# Functional Properties
+core:hasEntityType a owl:FunctionalProperty .
+core:hasStatus a owl:FunctionalProperty .
+iga:hasGovernanceView a owl:FunctionalProperty .
+aai:hasSecurityView a owl:FunctionalProperty .
+
+# Inverse Functional Properties
+core:entityId a owl:InverseFunctionalProperty .
+iga:employeeId a owl:InverseFunctionalProperty .
+
+# Property Constraints
+iga:IGAEntity rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty iga:hasGovernanceFor ;
+    owl:cardinality 1
+] .
+
+aai:AAIEntity rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty aai:hasSecurityFor ;
+    owl:cardinality 1
+] .
+
+# Domain/Range Restrictions
+iga:manages rdfs:domain iga:HumanIdentity ;
+    rdfs:range iga:HumanIdentity .
+
+aai:riskScore rdfs:domain [
+    a owl:Class ;
+    owl:unionOf (aai:AAIEntity aai:RiskAssessment aai:Session)
+] .
+
+# Data Property Restrictions
+iga:priority rdfs:subPropertyOf [
+    a owl:Restriction ;
+    owl:onDataRange [
+        a rdfs:Datatype ;
+        owl:onDatatype xsd:int ;
+        owl:withRestrictions (
+            [ xsd:minInclusive 1 ]
+            [ xsd:maxInclusive 5 ]
+        )
+    ]
+] .
+
+aai:strengthScore rdfs:subPropertyOf [
+    a owl:Restriction ;
+    owl:onDataRange [
+        a rdfs:Datatype ;
+        owl:onDatatype xsd:int ;
+        owl:withRestrictions (
+            [ xsd:minInclusive 0 ]
+            [ xsd:maxInclusive 100 ]
+        )
+    ]
+] .
+
+- - -
+
+published diagram: https://claude.ai/public/artifacts/e38fa132-04b1-482c-a265-f75ab0f8ef1c 
+
+owl doc for this ontology: file:///Users/kh/opt/agentsIdLifecycle/index.html 

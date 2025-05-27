@@ -1,0 +1,1538 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://identity.org/ontology/identity-management#"
+     xml:base="http://identity.org/ontology/identity-management"
+     xmlns:aai="http://identity.org/ontology/aai#"
+     xmlns:iga="http://identity.org/ontology/iga#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:core="http://identity.org/ontology/core#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:dcterms="http://purl.org/dc/terms/">
+    <owl:Ontology rdf:about="http://identity.org/ontology/identity-management">
+        <dcterms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2025-05-27</dcterms:created>
+        <dcterms:creator>Identity Management System</dcterms:creator>
+        <dcterms:description>An ontology for Identity Governance Administration (IGA) and Authentication, Authorization, Identity (AAI) domains</dcterms:description>
+        <dcterms:title>Integrated Identity Management Ontology</dcterms:title>
+        <owl:versionInfo>1.0</owl:versionInfo>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/dc/terms/created -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/created"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/creator -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/creator"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/description -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/description"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/title -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/title"/>
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#maxInclusive -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2001/XMLSchema#maxInclusive"/>
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#minInclusive -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2001/XMLSchema#minInclusive"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#date -->
+
+    <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#date"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://identity.org/ontology/aai#evaluatedBy -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/aai#evaluatedBy">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/aai#Policy"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/aai#PolicyEvaluation"/>
+        <rdfs:label>evaluated by</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/aai#hasAccessTo -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/aai#hasAccessTo">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/core#Resource"/>
+        <rdfs:label>has access to</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/aai#hasCredential -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/aai#hasCredential">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/aai#Credential"/>
+        <rdfs:label>has credential</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/aai#hasPermission -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/aai#hasPermission">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/aai#Permission"/>
+        <rdfs:label>has permission</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/aai#hasSecurityFor -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/aai#hasSecurityFor">
+        <owl:inverseOf rdf:resource="http://identity.org/ontology/aai#hasSecurityView"/>
+        <rdfs:domain rdf:resource="http://identity.org/ontology/aai#AAIEntity"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:label>has security for</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/aai#hasSecurityView -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/aai#hasSecurityView">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/aai#AAIEntity"/>
+        <rdfs:label>has security view</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/aai#hasSession -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/aai#hasSession">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/aai#Session"/>
+        <rdfs:label>has session</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/aai#isSubjectTo -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/aai#isSubjectTo">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/aai#Policy"/>
+        <rdfs:label>is subject to</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/core#belongsToTenant -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/core#belongsToTenant">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/core#Tenant"/>
+        <rdfs:label>belongs to tenant</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/core#entityId -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/core#entityId">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://identity.org/ontology/core#Entity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/core#generatesAuditEvent -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/core#generatesAuditEvent">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/core#AuditEvent"/>
+        <rdfs:label>generates audit event</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/core#hasEntityType -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/core#hasEntityType">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/core#EntityType"/>
+        <rdfs:label>has entity type</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/core#hasParentTenant -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/core#hasParentTenant">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/core#Tenant"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/core#Tenant"/>
+        <rdfs:label>has parent tenant</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/core#hasStatus -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/core#hasStatus">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/core#EntityStatus"/>
+        <rdfs:label>has status</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/core#synchronizedBy -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/core#synchronizedBy">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/core#SyncEvent"/>
+        <rdfs:label>synchronized by</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#employeeId -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/iga#employeeId">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://identity.org/ontology/iga#HumanIdentity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#hasApprover -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/iga#hasApprover">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/iga#Approval"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:label>has approver</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#hasBusinessOwner -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/iga#hasBusinessOwner">
+        <rdfs:range rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:label>has business owner</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#hasGovernanceFor -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/iga#hasGovernanceFor">
+        <owl:inverseOf rdf:resource="http://identity.org/ontology/iga#hasGovernanceView"/>
+        <rdfs:domain rdf:resource="http://identity.org/ontology/iga#IGAEntity"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:label>has governance for</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#hasGovernanceView -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/iga#hasGovernanceView">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/iga#IGAEntity"/>
+        <rdfs:label>has governance view</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#hasRole -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/iga#hasRole">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/iga#Role"/>
+        <rdfs:label>has role</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#isMemberOf -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/iga#isMemberOf">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/iga#Group"/>
+        <rdfs:label>is member of</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#manages -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/iga#manages">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/iga#HumanIdentity"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/iga#HumanIdentity"/>
+        <rdfs:label>manages</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#representsEntity -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/iga#representsEntity">
+        <rdfs:range rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:label>represents entity</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#subjectOfAttestation -->
+
+    <owl:ObjectProperty rdf:about="http://identity.org/ontology/iga#subjectOfAttestation">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/core#Entity"/>
+        <rdfs:range rdf:resource="http://identity.org/ontology/iga#Attestation"/>
+        <rdfs:label>subject of attestation</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- _:genid-nodeid-node1is9h8bj6x56 -->
+
+    <owl:DatatypeProperty rdf:about="_:genid-nodeid-node1is9h8bj6x56"/>
+    
+
+
+    <!-- _:genid-nodeid-node1is9h8bj6x62 -->
+
+    <owl:DatatypeProperty rdf:about="_:genid-nodeid-node1is9h8bj6x62"/>
+    
+
+
+    <!-- http://identity.org/ontology/aai#authenticationStrength -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/aai#authenticationStrength">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/aai#AAIEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>authentication strength</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/aai#expiresAt -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/aai#expiresAt">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>expires at</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/aai#failedLoginAttempts -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/aai#failedLoginAttempts">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/aai#AAIEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:label>failed login attempts</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/aai#isActive -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/aai#isActive">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:label>is active</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/aai#isAnomaly -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/aai#isAnomaly">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/aai#SecurityEvent"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:label>is anomaly</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/aai#lastAccessAt -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/aai#lastAccessAt">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/aai#AAIEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>last access at</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/aai#mfaEnabled -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/aai#mfaEnabled">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/aai#AAIEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:label>MFA enabled</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/aai#riskScore -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/aai#riskScore">
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://identity.org/ontology/aai#AAIEntity"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/aai#RiskAssessment"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/aai#Session"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>risk score</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/aai#securityLevel -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/aai#securityLevel">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/aai#AAIEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>security level</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/aai#sourceIp -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/aai#sourceIp">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/aai#Session"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>source IP</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/aai#strengthScore -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/aai#strengthScore">
+        <rdfs:subPropertyOf rdf:resource="_:genid-nodeid-node1is9h8bj6x62"/>
+        <rdfs:domain rdf:resource="http://identity.org/ontology/aai#Credential"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:label>strength score</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/aai#usageCount -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/aai#usageCount">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:label>usage count</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/aai#userAgent -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/aai#userAgent">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/aai#Session"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>user agent</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/core#createdAt -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/core#createdAt">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>created at</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/core#description -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/core#description">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>description</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/core#entityId -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/core#entityId">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/core#name -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/core#name">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>name</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/core#updatedAt -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/core#updatedAt">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>updated at</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#businessPurpose -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/iga#businessPurpose">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/iga#IGAEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>business purpose</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#complianceScope -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/iga#complianceScope">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/iga#IGAEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>compliance scope</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#department -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/iga#department">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/iga#HumanIdentity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>department</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#email -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/iga#email">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/iga#HumanIdentity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>email</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#employeeId -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/iga#employeeId">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#firstName -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/iga#firstName">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/iga#HumanIdentity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>first name</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#jobTitle -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/iga#jobTitle">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/iga#HumanIdentity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>job title</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#justification -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/iga#justification">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>justification</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#lastName -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/iga#lastName">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/iga#HumanIdentity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>last name</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#priority -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/iga#priority">
+        <rdfs:subPropertyOf rdf:resource="_:genid-nodeid-node1is9h8bj6x56"/>
+        <rdfs:domain rdf:resource="http://identity.org/ontology/iga#WorkflowInstance"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:label>priority</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://identity.org/ontology/iga#requiresAttestation -->
+
+    <owl:DatatypeProperty rdf:about="http://identity.org/ontology/iga#requiresAttestation">
+        <rdfs:domain rdf:resource="http://identity.org/ontology/iga#IGAEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:label>requires attestation</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://identity.org/ontology/aai#AAIEntity -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/aai#AAIEntity">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://identity.org/ontology/aai#hasSecurityFor"/>
+                <owl:someValuesFrom rdf:resource="http://identity.org/ontology/core#Entity"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://identity.org/ontology/aai#hasSecurityFor"/>
+                <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://identity.org/ontology/iga#IGAEntity"/>
+        <rdfs:comment>Security view of an entity with authentication context</rdfs:comment>
+        <rdfs:label>AAI Entity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/aai#AccessGrant -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/aai#AccessGrant">
+        <rdfs:comment>Granted access to resource</rdfs:comment>
+        <rdfs:label>Access Grant</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/aai#ApiKey -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/aai#ApiKey">
+        <rdfs:subClassOf rdf:resource="http://identity.org/ontology/aai#Credential"/>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/aai#Application -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/aai#Application">
+        <rdfs:subClassOf rdf:resource="http://identity.org/ontology/core#Resource"/>
+        <rdfs:comment>Integrated application</rdfs:comment>
+        <rdfs:label>Application</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/aai#Certificate -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/aai#Certificate">
+        <rdfs:subClassOf rdf:resource="http://identity.org/ontology/aai#Credential"/>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/aai#Credential -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/aai#Credential">
+        <rdfs:comment>Authentication credential for entity</rdfs:comment>
+        <rdfs:label>Credential</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/aai#CredentialType -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/aai#CredentialType">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://identity.org/ontology/aai#ApiKey"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/aai#Biometric"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/aai#Certificate"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/aai#MFADevice"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/aai#Password"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/aai#Token"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:label>Credential Type</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/aai#MFADevice -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/aai#MFADevice">
+        <rdfs:subClassOf rdf:resource="http://identity.org/ontology/aai#Credential"/>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/aai#Permission -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/aai#Permission">
+        <rdfs:comment>Specific permission for resource action</rdfs:comment>
+        <rdfs:label>Permission</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/aai#Policy -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/aai#Policy">
+        <rdfs:comment>Authorization policy for access control</rdfs:comment>
+        <rdfs:label>Policy</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/aai#PolicyEvaluation -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/aai#PolicyEvaluation">
+        <rdfs:comment>Result of policy evaluation</rdfs:comment>
+        <rdfs:label>Policy Evaluation</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/aai#PolicyType -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/aai#PolicyType">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://identity.org/ontology/aai#ABAC"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/aai#Contextual"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/aai#Custom"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/aai#RBAC"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:label>Policy Type</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/aai#RiskAssessment -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/aai#RiskAssessment">
+        <rdfs:comment>Security risk assessment</rdfs:comment>
+        <rdfs:label>Risk Assessment</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/aai#SecurityEvent -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/aai#SecurityEvent">
+        <rdfs:comment>Security-related event</rdfs:comment>
+        <rdfs:label>Security Event</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/aai#Session -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/aai#Session">
+        <rdfs:comment>Authentication session</rdfs:comment>
+        <rdfs:label>Session</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/aai#SessionType -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/aai#SessionType">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://identity.org/ontology/aai#API"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/aai#Mobile"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/aai#Service"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/aai#Web"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:label>Session Type</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/core#AuditEvent -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/core#AuditEvent">
+        <rdfs:comment>Auditable event across domains</rdfs:comment>
+        <rdfs:label>Audit Event</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/core#Entity -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/core#Entity">
+        <owl:disjointWith rdf:resource="http://identity.org/ontology/core#Resource"/>
+        <owl:disjointWith rdf:resource="http://identity.org/ontology/core#Tenant"/>
+        <rdfs:comment>Base class for all identity entities in the system</rdfs:comment>
+        <rdfs:label>Entity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/core#EntityStatus -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/core#EntityStatus">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://identity.org/ontology/core#Active"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/core#Expired"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/core#Inactive"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/core#Suspended"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:label>Entity Status</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/core#EntityType -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/core#EntityType">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://identity.org/ontology/core#API"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/core#Bot"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/core#Device"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/core#Human"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/core#Service"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:label>Entity Type</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/core#IdentityProvider -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/core#IdentityProvider">
+        <rdfs:comment>External identity provider</rdfs:comment>
+        <rdfs:label>Identity Provider</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/core#Resource -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/core#Resource">
+        <owl:disjointWith rdf:resource="http://identity.org/ontology/core#Tenant"/>
+        <rdfs:comment>Protected resource that requires access control</rdfs:comment>
+        <rdfs:label>Resource</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/core#SyncEvent -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/core#SyncEvent">
+        <rdfs:comment>Cross-domain synchronization event</rdfs:comment>
+        <rdfs:label>Sync Event</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/core#SyncJob -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/core#SyncJob">
+        <rdfs:comment>Identity synchronization job</rdfs:comment>
+        <rdfs:label>Sync Job</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/core#Tenant -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/core#Tenant">
+        <rdfs:comment>Organizational unit for multi-tenancy support</rdfs:comment>
+        <rdfs:label>Tenant</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/iga#AccessRequest -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/iga#AccessRequest"/>
+    
+
+
+    <!-- http://identity.org/ontology/iga#ApiIdentity -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/iga#ApiIdentity">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://identity.org/ontology/iga#representsEntity"/>
+                <owl:allValuesFrom>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://identity.org/ontology/core#hasEntityType"/>
+                        <owl:hasValue rdf:resource="http://identity.org/ontology/core#API"/>
+                    </owl:Restriction>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>Identity attributes for API entities</rdfs:comment>
+        <rdfs:label>API Identity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/iga#Approval -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/iga#Approval">
+        <rdfs:comment>Approval step in workflow</rdfs:comment>
+        <rdfs:label>Approval</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/iga#Attestation -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/iga#Attestation">
+        <rdfs:comment>Individual attestation within campaign</rdfs:comment>
+        <rdfs:label>Attestation</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/iga#AttestationCampaign -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/iga#AttestationCampaign">
+        <rdfs:comment>Organized compliance review cycle</rdfs:comment>
+        <rdfs:label>Attestation Campaign</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/iga#AttestationType -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/iga#AttestationType">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://identity.org/ontology/iga#AccessReview"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/iga#RiskReview"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/iga#RoleReview"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:label>Attestation Type</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/iga#DeviceIdentity -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/iga#DeviceIdentity">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://identity.org/ontology/iga#representsEntity"/>
+                <owl:allValuesFrom>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://identity.org/ontology/core#hasEntityType"/>
+                        <owl:hasValue rdf:resource="http://identity.org/ontology/core#Device"/>
+                    </owl:Restriction>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>Identity attributes for device entities</rdfs:comment>
+        <rdfs:label>Device Identity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/iga#Group -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/iga#Group">
+        <rdfs:comment>Collection of entities for governance purposes</rdfs:comment>
+        <rdfs:label>Group</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/iga#GroupMembership -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/iga#GroupMembership">
+        <rdfs:comment>Relationship between entity and group</rdfs:comment>
+        <rdfs:label>Group Membership</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/iga#GroupType -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/iga#GroupType">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://identity.org/ontology/iga#Department"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/iga#Functional"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/iga#Project"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/iga#Security"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/iga#Team"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:label>Group Type</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/iga#HumanIdentity -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/iga#HumanIdentity">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://identity.org/ontology/iga#representsEntity"/>
+                <owl:allValuesFrom>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://identity.org/ontology/core#hasEntityType"/>
+                        <owl:hasValue rdf:resource="http://identity.org/ontology/core#Human"/>
+                    </owl:Restriction>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>Identity attributes for human entities</rdfs:comment>
+        <rdfs:label>Human Identity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/iga#IGAEntity -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/iga#IGAEntity">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://identity.org/ontology/iga#hasGovernanceFor"/>
+                <owl:someValuesFrom rdf:resource="http://identity.org/ontology/core#Entity"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://identity.org/ontology/iga#hasGovernanceFor"/>
+                <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>Governance view of an entity with business context</rdfs:comment>
+        <rdfs:label>IGA Entity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/iga#PolicyViolation -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/iga#PolicyViolation">
+        <rdfs:comment>Detected policy or compliance violation</rdfs:comment>
+        <rdfs:label>Policy Violation</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/iga#Role -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/iga#Role">
+        <rdfs:comment>Business role with associated permissions</rdfs:comment>
+        <rdfs:label>Role</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/iga#RoleAssignment -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/iga#RoleAssignment">
+        <rdfs:comment>Assignment of role to entity</rdfs:comment>
+        <rdfs:label>Role Assignment</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/iga#RoleType -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/iga#RoleType">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://identity.org/ontology/iga#Administrative"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/iga#Business"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/iga#Technical"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:label>Role Type</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/iga#ServiceIdentity -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/iga#ServiceIdentity">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://identity.org/ontology/iga#representsEntity"/>
+                <owl:allValuesFrom>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://identity.org/ontology/core#hasEntityType"/>
+                        <owl:hasValue rdf:resource="http://identity.org/ontology/core#Service"/>
+                    </owl:Restriction>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>Identity attributes for service entities</rdfs:comment>
+        <rdfs:label>Service Identity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/iga#WorkflowInstance -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/iga#WorkflowInstance">
+        <rdfs:comment>Instance of a governance workflow</rdfs:comment>
+        <rdfs:label>Workflow Instance</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://identity.org/ontology/iga#WorkflowType -->
+
+    <owl:Class rdf:about="http://identity.org/ontology/iga#WorkflowType">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://identity.org/ontology/iga#AccessRequest"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/iga#Certification"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/iga#Deprovisioning"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/iga#Provisioning"/>
+                    <rdf:Description rdf:about="http://identity.org/ontology/iga#RoleChange"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:label>Workflow Type</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://identity.org/ontology/aai#ABAC -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/aai#ABAC"/>
+    
+
+
+    <!-- http://identity.org/ontology/aai#API -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/aai#API"/>
+    
+
+
+    <!-- http://identity.org/ontology/aai#ApiKey -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/aai#ApiKey"/>
+    
+
+
+    <!-- http://identity.org/ontology/aai#Biometric -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/aai#Biometric"/>
+    
+
+
+    <!-- http://identity.org/ontology/aai#Certificate -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/aai#Certificate"/>
+    
+
+
+    <!-- http://identity.org/ontology/aai#Contextual -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/aai#Contextual"/>
+    
+
+
+    <!-- http://identity.org/ontology/aai#Custom -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/aai#Custom"/>
+    
+
+
+    <!-- http://identity.org/ontology/aai#MFADevice -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/aai#MFADevice"/>
+    
+
+
+    <!-- http://identity.org/ontology/aai#Mobile -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/aai#Mobile"/>
+    
+
+
+    <!-- http://identity.org/ontology/aai#Password -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/aai#Password"/>
+    
+
+
+    <!-- http://identity.org/ontology/aai#RBAC -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/aai#RBAC"/>
+    
+
+
+    <!-- http://identity.org/ontology/aai#Service -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/aai#Service"/>
+    
+
+
+    <!-- http://identity.org/ontology/aai#Token -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/aai#Token"/>
+    
+
+
+    <!-- http://identity.org/ontology/aai#Web -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/aai#Web"/>
+    
+
+
+    <!-- http://identity.org/ontology/core#API -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/core#API">
+        <rdf:type rdf:resource="http://identity.org/ontology/core#EntityType"/>
+        <rdfs:label>API</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://identity.org/ontology/core#Active -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/core#Active">
+        <rdf:type rdf:resource="http://identity.org/ontology/core#EntityStatus"/>
+        <rdfs:label>Active</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://identity.org/ontology/core#Bot -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/core#Bot">
+        <rdf:type rdf:resource="http://identity.org/ontology/core#EntityType"/>
+        <rdfs:label>Bot</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://identity.org/ontology/core#Device -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/core#Device">
+        <rdf:type rdf:resource="http://identity.org/ontology/core#EntityType"/>
+        <rdfs:label>Device</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://identity.org/ontology/core#Expired -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/core#Expired">
+        <rdf:type rdf:resource="http://identity.org/ontology/core#EntityStatus"/>
+        <rdfs:label>Expired</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://identity.org/ontology/core#Human -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/core#Human">
+        <rdf:type rdf:resource="http://identity.org/ontology/core#EntityType"/>
+        <rdfs:label>Human</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://identity.org/ontology/core#Inactive -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/core#Inactive">
+        <rdf:type rdf:resource="http://identity.org/ontology/core#EntityStatus"/>
+        <rdfs:label>Inactive</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://identity.org/ontology/core#Service -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/core#Service">
+        <rdf:type rdf:resource="http://identity.org/ontology/core#EntityType"/>
+        <rdfs:label>Service</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://identity.org/ontology/core#Suspended -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/core#Suspended">
+        <rdf:type rdf:resource="http://identity.org/ontology/core#EntityStatus"/>
+        <rdfs:label>Suspended</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://identity.org/ontology/iga#AccessRequest -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/iga#AccessRequest"/>
+    
+
+
+    <!-- http://identity.org/ontology/iga#AccessReview -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/iga#AccessReview"/>
+    
+
+
+    <!-- http://identity.org/ontology/iga#Administrative -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/iga#Administrative"/>
+    
+
+
+    <!-- http://identity.org/ontology/iga#Business -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/iga#Business"/>
+    
+
+
+    <!-- http://identity.org/ontology/iga#Certification -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/iga#Certification"/>
+    
+
+
+    <!-- http://identity.org/ontology/iga#Department -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/iga#Department"/>
+    
+
+
+    <!-- http://identity.org/ontology/iga#Deprovisioning -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/iga#Deprovisioning"/>
+    
+
+
+    <!-- http://identity.org/ontology/iga#Functional -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/iga#Functional"/>
+    
+
+
+    <!-- http://identity.org/ontology/iga#Project -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/iga#Project"/>
+    
+
+
+    <!-- http://identity.org/ontology/iga#Provisioning -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/iga#Provisioning"/>
+    
+
+
+    <!-- http://identity.org/ontology/iga#RiskReview -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/iga#RiskReview"/>
+    
+
+
+    <!-- http://identity.org/ontology/iga#RoleChange -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/iga#RoleChange"/>
+    
+
+
+    <!-- http://identity.org/ontology/iga#RoleReview -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/iga#RoleReview"/>
+    
+
+
+    <!-- http://identity.org/ontology/iga#Security -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/iga#Security"/>
+    
+
+
+    <!-- http://identity.org/ontology/iga#Team -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/iga#Team"/>
+    
+
+
+    <!-- http://identity.org/ontology/iga#Technical -->
+
+    <owl:NamedIndividual rdf:about="http://identity.org/ontology/iga#Technical"/>
+    <rdf:Description>
+        <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</xsd:minInclusive>
+    </rdf:Description>
+    <rdf:Description>
+        <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</xsd:maxInclusive>
+    </rdf:Description>
+    <rdf:Description>
+        <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</xsd:minInclusive>
+    </rdf:Description>
+    <rdf:Description>
+        <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</xsd:maxInclusive>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotations
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="http://identity.org/ontology/aai#ApiKey">
+        <rdfs:comment>API key credential</rdfs:comment>
+        <rdfs:label>API Key</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://identity.org/ontology/aai#Certificate">
+        <rdfs:comment>X.509 certificate credential</rdfs:comment>
+        <rdfs:label>Certificate</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://identity.org/ontology/aai#MFADevice">
+        <rdfs:comment>Multi-factor authentication device</rdfs:comment>
+        <rdfs:label>MFA Device</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://identity.org/ontology/core#entityId">
+        <rdfs:label>entity ID</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://identity.org/ontology/iga#AccessRequest">
+        <rdfs:comment>Request for access to resources</rdfs:comment>
+        <rdfs:label>Access Request</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://identity.org/ontology/iga#employeeId">
+        <rdfs:label>employee ID</rdfs:label>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+

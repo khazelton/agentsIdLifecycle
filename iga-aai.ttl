@@ -1,0 +1,633 @@
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix iga: <http://identity.org/ontology/iga#> .
+@prefix aai: <http://identity.org/ontology/aai#> .
+@prefix core: <http://identity.org/ontology/core#> .
+
+# ============================================
+# ONTOLOGY METADATA
+# ============================================
+
+<http://identity.org/ontology/identity-management> a owl:Ontology ;
+    dcterms:title "Integrated Identity Management Ontology" ;
+    dcterms:description "An ontology for Identity Governance Administration (IGA) and Authentication, Authorization, Identity (AAI) domains" ;
+    dcterms:creator "Identity Management System" ;
+    dcterms:created "2025-05-27"^^xsd:date ;
+    owl:versionInfo "1.0" .
+
+# ============================================
+# CORE FOUNDATION CLASSES
+# ============================================
+
+core:Entity a owl:Class ;
+    rdfs:label "Entity" ;
+    rdfs:comment "Base class for all identity entities in the system" .
+
+core:Tenant a owl:Class ;
+    rdfs:label "Tenant" ;
+    rdfs:comment "Organizational unit for multi-tenancy support" .
+
+core:Resource a owl:Class ;
+    rdfs:label "Resource" ;
+    rdfs:comment "Protected resource that requires access control" .
+
+# Entity Type Enumeration
+core:EntityType a owl:Class ;
+    rdfs:label "Entity Type" ;
+    owl:oneOf (core:Human core:Service core:Device core:API core:Bot) .
+
+core:Human a core:EntityType ;
+    rdfs:label "Human" .
+
+core:Service a core:EntityType ;
+    rdfs:label "Service" .
+
+core:Device a core:EntityType ;
+    rdfs:label "Device" .
+
+core:API a core:EntityType ;
+    rdfs:label "API" .
+
+core:Bot a core:EntityType ;
+    rdfs:label "Bot" .
+
+# Status Enumeration
+core:EntityStatus a owl:Class ;
+    rdfs:label "Entity Status" ;
+    owl:oneOf (core:Active core:Inactive core:Suspended core:Expired) .
+
+core:Active a core:EntityStatus ;
+    rdfs:label "Active" .
+
+core:Inactive a core:EntityStatus ;
+    rdfs:label "Inactive" .
+
+core:Suspended a core:EntityStatus ;
+    rdfs:label "Suspended" .
+
+core:Expired a core:EntityStatus ;
+    rdfs:label "Expired" .
+
+# ============================================
+# IGA DOMAIN CLASSES
+# ============================================
+
+iga:IGAEntity a owl:Class ;
+    rdfs:label "IGA Entity" ;
+    rdfs:comment "Governance view of an entity with business context" ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty iga:hasGovernanceFor ;
+        owl:someValuesFrom core:Entity
+    ] .
+
+iga:HumanIdentity a owl:Class ;
+    rdfs:label "Human Identity" ;
+    rdfs:comment "Identity attributes for human entities" ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty iga:representsEntity ;
+        owl:allValuesFrom [
+            a owl:Restriction ;
+            owl:onProperty core:hasEntityType ;
+            owl:hasValue core:Human
+        ]
+    ] .
+
+iga:ServiceIdentity a owl:Class ;
+    rdfs:label "Service Identity" ;
+    rdfs:comment "Identity attributes for service entities" ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty iga:representsEntity ;
+        owl:allValuesFrom [
+            a owl:Restriction ;
+            owl:onProperty core:hasEntityType ;
+            owl:hasValue core:Service
+        ]
+    ] .
+
+iga:DeviceIdentity a owl:Class ;
+    rdfs:label "Device Identity" ;
+    rdfs:comment "Identity attributes for device entities" ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty iga:representsEntity ;
+        owl:allValuesFrom [
+            a owl:Restriction ;
+            owl:onProperty core:hasEntityType ;
+            owl:hasValue core:Device
+        ]
+    ] .
+
+iga:ApiIdentity a owl:Class ;
+    rdfs:label "API Identity" ;
+    rdfs:comment "Identity attributes for API entities" ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty iga:representsEntity ;
+        owl:allValuesFrom [
+            a owl:Restriction ;
+            owl:onProperty core:hasEntityType ;
+            owl:hasValue core:API
+        ]
+    ] .
+
+# IGA Governance Structures
+iga:Group a owl:Class ;
+    rdfs:label "Group" ;
+    rdfs:comment "Collection of entities for governance purposes" .
+
+iga:GroupMembership a owl:Class ;
+    rdfs:label "Group Membership" ;
+    rdfs:comment "Relationship between entity and group" .
+
+iga:Role a owl:Class ;
+    rdfs:label "Role" ;
+    rdfs:comment "Business role with associated permissions" .
+
+iga:RoleAssignment a owl:Class ;
+    rdfs:label "Role Assignment" ;
+    rdfs:comment "Assignment of role to entity" .
+
+# IGA Workflow Classes
+iga:WorkflowInstance a owl:Class ;
+    rdfs:label "Workflow Instance" ;
+    rdfs:comment "Instance of a governance workflow" .
+
+iga:Approval a owl:Class ;
+    rdfs:label "Approval" ;
+    rdfs:comment "Approval step in workflow" .
+
+iga:AccessRequest a owl:Class ;
+    rdfs:label "Access Request" ;
+    rdfs:comment "Request for access to resources" .
+
+# IGA Compliance Classes
+iga:AttestationCampaign a owl:Class ;
+    rdfs:label "Attestation Campaign" ;
+    rdfs:comment "Organized compliance review cycle" .
+
+iga:Attestation a owl:Class ;
+    rdfs:label "Attestation" ;
+    rdfs:comment "Individual attestation within campaign" .
+
+iga:PolicyViolation a owl:Class ;
+    rdfs:label "Policy Violation" ;
+    rdfs:comment "Detected policy or compliance violation" .
+
+# IGA Enumerations
+iga:GroupType a owl:Class ;
+    rdfs:label "Group Type" ;
+    owl:oneOf (iga:Department iga:Team iga:Project iga:Security iga:Functional) .
+
+iga:RoleType a owl:Class ;
+    rdfs:label "Role Type" ;
+    owl:oneOf (iga:Business iga:Technical iga:Administrative) .
+
+iga:WorkflowType a owl:Class ;
+    rdfs:label "Workflow Type" ;
+    owl:oneOf (iga:Provisioning iga:Deprovisioning iga:AccessRequest iga:Certification iga:RoleChange) .
+
+iga:AttestationType a owl:Class ;
+    rdfs:label "Attestation Type" ;
+    owl:oneOf (iga:AccessReview iga:RoleReview iga:RiskReview) .
+
+# ============================================
+# AAI DOMAIN CLASSES
+# ============================================
+
+aai:AAIEntity a owl:Class ;
+    rdfs:label "AAI Entity" ;
+    rdfs:comment "Security view of an entity with authentication context" ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty aai:hasSecurityFor ;
+        owl:someValuesFrom core:Entity
+    ] .
+
+# AAI Authentication & Credentials
+aai:Credential a owl:Class ;
+    rdfs:label "Credential" ;
+    rdfs:comment "Authentication credential for entity" .
+
+aai:Certificate a owl:Class ;
+    rdfs:label "Certificate" ;
+    rdfs:comment "X.509 certificate credential" ;
+    rdfs:subClassOf aai:Credential .
+
+aai:ApiKey a owl:Class ;
+    rdfs:label "API Key" ;
+    rdfs:comment "API key credential" ;
+    rdfs:subClassOf aai:Credential .
+
+aai:MFADevice a owl:Class ;
+    rdfs:label "MFA Device" ;
+    rdfs:comment "Multi-factor authentication device" ;
+    rdfs:subClassOf aai:Credential .
+
+# AAI Authorization Framework
+aai:Permission a owl:Class ;
+    rdfs:label "Permission" ;
+    rdfs:comment "Specific permission for resource action" .
+
+aai:Policy a owl:Class ;
+    rdfs:label "Policy" ;
+    rdfs:comment "Authorization policy for access control" .
+
+aai:PolicyEvaluation a owl:Class ;
+    rdfs:label "Policy Evaluation" ;
+    rdfs:comment "Result of policy evaluation" .
+
+aai:AccessGrant a owl:Class ;
+    rdfs:label "Access Grant" ;
+    rdfs:comment "Granted access to resource" .
+
+# AAI Session & Context
+aai:Session a owl:Class ;
+    rdfs:label "Session" ;
+    rdfs:comment "Authentication session" .
+
+aai:SecurityEvent a owl:Class ;
+    rdfs:label "Security Event" ;
+    rdfs:comment "Security-related event" .
+
+aai:RiskAssessment a owl:Class ;
+    rdfs:label "Risk Assessment" ;
+    rdfs:comment "Security risk assessment" .
+
+# AAI Application Integration
+aai:Application a owl:Class ;
+    rdfs:label "Application" ;
+    rdfs:comment "Integrated application" ;
+    rdfs:subClassOf core:Resource .
+
+# AAI Enumerations
+aai:CredentialType a owl:Class ;
+    rdfs:label "Credential Type" ;
+    owl:oneOf (aai:Password aai:Certificate aai:ApiKey aai:Token aai:Biometric aai:MFADevice) .
+
+aai:SessionType a owl:Class ;
+    rdfs:label "Session Type" ;
+    owl:oneOf (aai:Web aai:API aai:Service aai:Mobile) .
+
+aai:PolicyType a owl:Class ;
+    rdfs:label "Policy Type" ;
+    owl:oneOf (aai:ABAC aai:RBAC aai:Custom aai:Contextual) .
+
+# ============================================
+# CROSS-DOMAIN INTEGRATION CLASSES
+# ============================================
+
+core:AuditEvent a owl:Class ;
+    rdfs:label "Audit Event" ;
+    rdfs:comment "Auditable event across domains" .
+
+core:SyncEvent a owl:Class ;
+    rdfs:label "Sync Event" ;
+    rdfs:comment "Cross-domain synchronization event" .
+
+core:IdentityProvider a owl:Class ;
+    rdfs:label "Identity Provider" ;
+    rdfs:comment "External identity provider" .
+
+core:SyncJob a owl:Class ;
+    rdfs:label "Sync Job" ;
+    rdfs:comment "Identity synchronization job" .
+
+# ============================================
+# OBJECT PROPERTIES
+# ============================================
+
+# Core Properties
+core:hasEntityType a owl:ObjectProperty ;
+    rdfs:label "has entity type" ;
+    rdfs:domain core:Entity ;
+    rdfs:range core:EntityType .
+
+core:hasStatus a owl:ObjectProperty ;
+    rdfs:label "has status" ;
+    rdfs:domain core:Entity ;
+    rdfs:range core:EntityStatus .
+
+core:belongsToTenant a owl:ObjectProperty ;
+    rdfs:label "belongs to tenant" ;
+    rdfs:domain core:Entity ;
+    rdfs:range core:Tenant .
+
+core:hasParentTenant a owl:ObjectProperty ;
+    rdfs:label "has parent tenant" ;
+    rdfs:domain core:Tenant ;
+    rdfs:range core:Tenant .
+
+# IGA Properties
+iga:hasGovernanceFor a owl:ObjectProperty ;
+    rdfs:label "has governance for" ;
+    rdfs:domain iga:IGAEntity ;
+    rdfs:range core:Entity ;
+    owl:inverseOf iga:hasGovernanceView .
+
+iga:hasGovernanceView a owl:ObjectProperty ;
+    rdfs:label "has governance view" ;
+    rdfs:domain core:Entity ;
+    rdfs:range iga:IGAEntity .
+
+iga:representsEntity a owl:ObjectProperty ;
+    rdfs:label "represents entity" ;
+    rdfs:range core:Entity .
+
+iga:isMemberOf a owl:ObjectProperty ;
+    rdfs:label "is member of" ;
+    rdfs:domain core:Entity ;
+    rdfs:range iga:Group .
+
+iga:hasRole a owl:ObjectProperty ;
+    rdfs:label "has role" ;
+    rdfs:domain core:Entity ;
+    rdfs:range iga:Role .
+
+iga:hasBusinessOwner a owl:ObjectProperty ;
+    rdfs:label "has business owner" ;
+    rdfs:range core:Entity .
+
+iga:manages a owl:ObjectProperty ;
+    rdfs:label "manages" ;
+    rdfs:domain iga:HumanIdentity ;
+    rdfs:range iga:HumanIdentity .
+
+iga:hasApprover a owl:ObjectProperty ;
+    rdfs:label "has approver" ;
+    rdfs:domain iga:Approval ;
+    rdfs:range core:Entity .
+
+iga:subjectOfAttestation a owl:ObjectProperty ;
+    rdfs:label "subject of attestation" ;
+    rdfs:domain core:Entity ;
+    rdfs:range iga:Attestation .
+
+# AAI Properties
+aai:hasSecurityFor a owl:ObjectProperty ;
+    rdfs:label "has security for" ;
+    rdfs:domain aai:AAIEntity ;
+    rdfs:range core:Entity ;
+    owl:inverseOf aai:hasSecurityView .
+
+aai:hasSecurityView a owl:ObjectProperty ;
+    rdfs:label "has security view" ;
+    rdfs:domain core:Entity ;
+    rdfs:range aai:AAIEntity .
+
+aai:hasCredential a owl:ObjectProperty ;
+    rdfs:label "has credential" ;
+    rdfs:domain core:Entity ;
+    rdfs:range aai:Credential .
+
+aai:hasSession a owl:ObjectProperty ;
+    rdfs:label "has session" ;
+    rdfs:domain core:Entity ;
+    rdfs:range aai:Session .
+
+aai:hasPermission a owl:ObjectProperty ;
+    rdfs:label "has permission" ;
+    rdfs:domain core:Entity ;
+    rdfs:range aai:Permission .
+
+aai:isSubjectTo a owl:ObjectProperty ;
+    rdfs:label "is subject to" ;
+    rdfs:domain core:Entity ;
+    rdfs:range aai:Policy .
+
+aai:hasAccessTo a owl:ObjectProperty ;
+    rdfs:label "has access to" ;
+    rdfs:domain core:Entity ;
+    rdfs:range core:Resource .
+
+aai:evaluatedBy a owl:ObjectProperty ;
+    rdfs:label "evaluated by" ;
+    rdfs:domain aai:Policy ;
+    rdfs:range aai:PolicyEvaluation .
+
+# Cross-Domain Properties
+core:generatesAuditEvent a owl:ObjectProperty ;
+    rdfs:label "generates audit event" ;
+    rdfs:domain core:Entity ;
+    rdfs:range core:AuditEvent .
+
+core:synchronizedBy a owl:ObjectProperty ;
+    rdfs:label "synchronized by" ;
+    rdfs:domain core:Entity ;
+    rdfs:range core:SyncEvent .
+
+# ============================================
+# DATA PROPERTIES
+# ============================================
+
+# Core Data Properties
+core:entityId a owl:DatatypeProperty ;
+    rdfs:label "entity ID" ;
+    rdfs:domain core:Entity ;
+    rdfs:range xsd:string .
+
+core:createdAt a owl:DatatypeProperty ;
+    rdfs:label "created at" ;
+    rdfs:range xsd:dateTime .
+
+core:updatedAt a owl:DatatypeProperty ;
+    rdfs:label "updated at" ;
+    rdfs:range xsd:dateTime .
+
+core:name a owl:DatatypeProperty ;
+    rdfs:label "name" ;
+    rdfs:range xsd:string .
+
+core:description a owl:DatatypeProperty ;
+    rdfs:label "description" ;
+    rdfs:range xsd:string .
+
+# IGA Data Properties
+iga:firstName a owl:DatatypeProperty ;
+    rdfs:label "first name" ;
+    rdfs:domain iga:HumanIdentity ;
+    rdfs:range xsd:string .
+
+iga:lastName a owl:DatatypeProperty ;
+    rdfs:label "last name" ;
+    rdfs:domain iga:HumanIdentity ;
+    rdfs:range xsd:string .
+
+iga:email a owl:DatatypeProperty ;
+    rdfs:label "email" ;
+    rdfs:domain iga:HumanIdentity ;
+    rdfs:range xsd:string .
+
+iga:employeeId a owl:DatatypeProperty ;
+    rdfs:label "employee ID" ;
+    rdfs:domain iga:HumanIdentity ;
+    rdfs:range xsd:string .
+
+iga:department a owl:DatatypeProperty ;
+    rdfs:label "department" ;
+    rdfs:domain iga:HumanIdentity ;
+    rdfs:range xsd:string .
+
+iga:jobTitle a owl:DatatypeProperty ;
+    rdfs:label "job title" ;
+    rdfs:domain iga:HumanIdentity ;
+    rdfs:range xsd:string .
+
+iga:businessPurpose a owl:DatatypeProperty ;
+    rdfs:label "business purpose" ;
+    rdfs:domain iga:IGAEntity ;
+    rdfs:range xsd:string .
+
+iga:complianceScope a owl:DatatypeProperty ;
+    rdfs:label "compliance scope" ;
+    rdfs:domain iga:IGAEntity ;
+    rdfs:range xsd:string .
+
+iga:requiresAttestation a owl:DatatypeProperty ;
+    rdfs:label "requires attestation" ;
+    rdfs:domain iga:IGAEntity ;
+    rdfs:range xsd:boolean .
+
+iga:justification a owl:DatatypeProperty ;
+    rdfs:label "justification" ;
+    rdfs:range xsd:string .
+
+iga:priority a owl:DatatypeProperty ;
+    rdfs:label "priority" ;
+    rdfs:domain iga:WorkflowInstance ;
+    rdfs:range xsd:int .
+
+# AAI Data Properties
+aai:lastAccessAt a owl:DatatypeProperty ;
+    rdfs:label "last access at" ;
+    rdfs:domain aai:AAIEntity ;
+    rdfs:range xsd:dateTime .
+
+aai:securityLevel a owl:DatatypeProperty ;
+    rdfs:label "security level" ;
+    rdfs:domain aai:AAIEntity ;
+    rdfs:range xsd:string .
+
+aai:riskScore a owl:DatatypeProperty ;
+    rdfs:label "risk score" ;
+    rdfs:range xsd:float .
+
+aai:authenticationStrength a owl:DatatypeProperty ;
+    rdfs:label "authentication strength" ;
+    rdfs:domain aai:AAIEntity ;
+    rdfs:range xsd:string .
+
+aai:mfaEnabled a owl:DatatypeProperty ;
+    rdfs:label "MFA enabled" ;
+    rdfs:domain aai:AAIEntity ;
+    rdfs:range xsd:boolean .
+
+aai:failedLoginAttempts a owl:DatatypeProperty ;
+    rdfs:label "failed login attempts" ;
+    rdfs:domain aai:AAIEntity ;
+    rdfs:range xsd:int .
+
+aai:expiresAt a owl:DatatypeProperty ;
+    rdfs:label "expires at" ;
+    rdfs:range xsd:dateTime .
+
+aai:strengthScore a owl:DatatypeProperty ;
+    rdfs:label "strength score" ;
+    rdfs:domain aai:Credential ;
+    rdfs:range xsd:int .
+
+aai:usageCount a owl:DatatypeProperty ;
+    rdfs:label "usage count" ;
+    rdfs:range xsd:int .
+
+aai:sourceIp a owl:DatatypeProperty ;
+    rdfs:label "source IP" ;
+    rdfs:domain aai:Session ;
+    rdfs:range xsd:string .
+
+aai:userAgent a owl:DatatypeProperty ;
+    rdfs:label "user agent" ;
+    rdfs:domain aai:Session ;
+    rdfs:range xsd:string .
+
+aai:isActive a owl:DatatypeProperty ;
+    rdfs:label "is active" ;
+    rdfs:range xsd:boolean .
+
+aai:isAnomaly a owl:DatatypeProperty ;
+    rdfs:label "is anomaly" ;
+    rdfs:domain aai:SecurityEvent ;
+    rdfs:range xsd:boolean .
+
+# ============================================
+# AXIOMS AND CONSTRAINTS
+# ============================================
+
+# Disjoint Classes
+core:Entity owl:disjointWith core:Tenant, core:Resource .
+core:Tenant owl:disjointWith core:Resource .
+
+iga:IGAEntity owl:disjointWith aai:AAIEntity .
+
+# Functional Properties
+core:hasEntityType a owl:FunctionalProperty .
+core:hasStatus a owl:FunctionalProperty .
+iga:hasGovernanceView a owl:FunctionalProperty .
+aai:hasSecurityView a owl:FunctionalProperty .
+
+# Inverse Functional Properties
+core:entityId a owl:InverseFunctionalProperty .
+iga:employeeId a owl:InverseFunctionalProperty .
+
+# Property Constraints
+iga:IGAEntity rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty iga:hasGovernanceFor ;
+    owl:cardinality 1
+] .
+
+aai:AAIEntity rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty aai:hasSecurityFor ;
+    owl:cardinality 1
+] .
+
+# Domain/Range Restrictions
+iga:manages rdfs:domain iga:HumanIdentity ;
+    rdfs:range iga:HumanIdentity .
+
+aai:riskScore rdfs:domain [
+    a owl:Class ;
+    owl:unionOf (aai:AAIEntity aai:RiskAssessment aai:Session)
+] .
+
+# Data Property Restrictions
+iga:priority rdfs:subPropertyOf [
+    a owl:Restriction ;
+    owl:onDataRange [
+        a rdfs:Datatype ;
+        owl:onDatatype xsd:int ;
+        owl:withRestrictions (
+            [ xsd:minInclusive 1 ]
+            [ xsd:maxInclusive 5 ]
+        )
+    ]
+] .
+
+aai:strengthScore rdfs:subPropertyOf [
+    a owl:Restriction ;
+    owl:onDataRange [
+        a rdfs:Datatype ;
+        owl:onDatatype xsd:int ;
+        owl:withRestrictions (
+            [ xsd:minInclusive 0 ]
+            [ xsd:maxInclusive 100 ]
+        )
+    ]
+] .

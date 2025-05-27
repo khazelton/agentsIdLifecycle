@@ -1,0 +1,1032 @@
+@prefix : <http://identity.org/ontology/identity-management#> .
+@prefix aai: <http://identity.org/ontology/aai#> .
+@prefix iga: <http://identity.org/ontology/iga#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix core: <http://identity.org/ontology/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://identity.org/ontology/identity-management> .
+
+<http://identity.org/ontology/identity-management> rdf:type owl:Ontology ;
+                                                    dcterms:created "2025-05-27"^^xsd:date ;
+                                                    dcterms:creator "Identity Management System" ;
+                                                    dcterms:description "An ontology for Identity Governance Administration (IGA) and Authentication, Authorization, Identity (AAI) domains" ;
+                                                    dcterms:title "Integrated Identity Management Ontology" ;
+                                                    owl:versionInfo "1.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/description
+dcterms:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/title
+dcterms:title rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2001/XMLSchema#maxInclusive
+xsd:maxInclusive rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2001/XMLSchema#minInclusive
+xsd:minInclusive rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://identity.org/ontology/aai#evaluatedBy
+aai:evaluatedBy rdf:type owl:ObjectProperty ;
+                rdfs:domain aai:Policy ;
+                rdfs:range aai:PolicyEvaluation ;
+                rdfs:label "evaluated by" .
+
+
+###  http://identity.org/ontology/aai#hasAccessTo
+aai:hasAccessTo rdf:type owl:ObjectProperty ;
+                rdfs:domain core:Entity ;
+                rdfs:range core:Resource ;
+                rdfs:label "has access to" .
+
+
+###  http://identity.org/ontology/aai#hasCredential
+aai:hasCredential rdf:type owl:ObjectProperty ;
+                  rdfs:domain core:Entity ;
+                  rdfs:range aai:Credential ;
+                  rdfs:label "has credential" .
+
+
+###  http://identity.org/ontology/aai#hasPermission
+aai:hasPermission rdf:type owl:ObjectProperty ;
+                  rdfs:domain core:Entity ;
+                  rdfs:range aai:Permission ;
+                  rdfs:label "has permission" .
+
+
+###  http://identity.org/ontology/aai#hasSecurityFor
+aai:hasSecurityFor rdf:type owl:ObjectProperty ;
+                   owl:inverseOf aai:hasSecurityView ;
+                   rdfs:domain aai:AAIEntity ;
+                   rdfs:range core:Entity ;
+                   rdfs:label "has security for" .
+
+
+###  http://identity.org/ontology/aai#hasSecurityView
+aai:hasSecurityView rdf:type owl:ObjectProperty ,
+                             owl:FunctionalProperty ;
+                    rdfs:domain core:Entity ;
+                    rdfs:range aai:AAIEntity ;
+                    rdfs:label "has security view" .
+
+
+###  http://identity.org/ontology/aai#hasSession
+aai:hasSession rdf:type owl:ObjectProperty ;
+               rdfs:domain core:Entity ;
+               rdfs:range aai:Session ;
+               rdfs:label "has session" .
+
+
+###  http://identity.org/ontology/aai#isSubjectTo
+aai:isSubjectTo rdf:type owl:ObjectProperty ;
+                rdfs:domain core:Entity ;
+                rdfs:range aai:Policy ;
+                rdfs:label "is subject to" .
+
+
+###  http://identity.org/ontology/core#belongsToTenant
+core:belongsToTenant rdf:type owl:ObjectProperty ;
+                     rdfs:domain core:Entity ;
+                     rdfs:range core:Tenant ;
+                     rdfs:label "belongs to tenant" .
+
+
+###  http://identity.org/ontology/core#entityId
+core:entityId rdf:type owl:ObjectProperty ,
+                       owl:InverseFunctionalProperty ;
+              rdfs:domain core:Entity .
+
+
+###  http://identity.org/ontology/core#generatesAuditEvent
+core:generatesAuditEvent rdf:type owl:ObjectProperty ;
+                         rdfs:domain core:Entity ;
+                         rdfs:range core:AuditEvent ;
+                         rdfs:label "generates audit event" .
+
+
+###  http://identity.org/ontology/core#hasEntityType
+core:hasEntityType rdf:type owl:ObjectProperty ,
+                            owl:FunctionalProperty ;
+                   rdfs:domain core:Entity ;
+                   rdfs:range core:EntityType ;
+                   rdfs:label "has entity type" .
+
+
+###  http://identity.org/ontology/core#hasParentTenant
+core:hasParentTenant rdf:type owl:ObjectProperty ;
+                     rdfs:domain core:Tenant ;
+                     rdfs:range core:Tenant ;
+                     rdfs:label "has parent tenant" .
+
+
+###  http://identity.org/ontology/core#hasStatus
+core:hasStatus rdf:type owl:ObjectProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain core:Entity ;
+               rdfs:range core:EntityStatus ;
+               rdfs:label "has status" .
+
+
+###  http://identity.org/ontology/core#synchronizedBy
+core:synchronizedBy rdf:type owl:ObjectProperty ;
+                    rdfs:domain core:Entity ;
+                    rdfs:range core:SyncEvent ;
+                    rdfs:label "synchronized by" .
+
+
+###  http://identity.org/ontology/iga#employeeId
+iga:employeeId rdf:type owl:ObjectProperty ,
+                        owl:InverseFunctionalProperty ;
+               rdfs:domain iga:HumanIdentity .
+
+
+###  http://identity.org/ontology/iga#hasApprover
+iga:hasApprover rdf:type owl:ObjectProperty ;
+                rdfs:domain iga:Approval ;
+                rdfs:range core:Entity ;
+                rdfs:label "has approver" .
+
+
+###  http://identity.org/ontology/iga#hasBusinessOwner
+iga:hasBusinessOwner rdf:type owl:ObjectProperty ;
+                     rdfs:range core:Entity ;
+                     rdfs:label "has business owner" .
+
+
+###  http://identity.org/ontology/iga#hasGovernanceFor
+iga:hasGovernanceFor rdf:type owl:ObjectProperty ;
+                     owl:inverseOf iga:hasGovernanceView ;
+                     rdfs:domain iga:IGAEntity ;
+                     rdfs:range core:Entity ;
+                     rdfs:label "has governance for" .
+
+
+###  http://identity.org/ontology/iga#hasGovernanceView
+iga:hasGovernanceView rdf:type owl:ObjectProperty ,
+                               owl:FunctionalProperty ;
+                      rdfs:domain core:Entity ;
+                      rdfs:range iga:IGAEntity ;
+                      rdfs:label "has governance view" .
+
+
+###  http://identity.org/ontology/iga#hasRole
+iga:hasRole rdf:type owl:ObjectProperty ;
+            rdfs:domain core:Entity ;
+            rdfs:range iga:Role ;
+            rdfs:label "has role" .
+
+
+###  http://identity.org/ontology/iga#isMemberOf
+iga:isMemberOf rdf:type owl:ObjectProperty ;
+               rdfs:domain core:Entity ;
+               rdfs:range iga:Group ;
+               rdfs:label "is member of" .
+
+
+###  http://identity.org/ontology/iga#manages
+iga:manages rdf:type owl:ObjectProperty ;
+            rdfs:domain iga:HumanIdentity ;
+            rdfs:range iga:HumanIdentity ;
+            rdfs:label "manages" .
+
+
+###  http://identity.org/ontology/iga#representsEntity
+iga:representsEntity rdf:type owl:ObjectProperty ;
+                     rdfs:range core:Entity ;
+                     rdfs:label "represents entity" .
+
+
+###  http://identity.org/ontology/iga#subjectOfAttestation
+iga:subjectOfAttestation rdf:type owl:ObjectProperty ;
+                         rdfs:domain core:Entity ;
+                         rdfs:range iga:Attestation ;
+                         rdfs:label "subject of attestation" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  _:genid-nodeid-node1is9h8bj6x56
+_:genid-nodeid-node1is9h8bj6x56 rdf:type owl:DatatypeProperty .
+
+
+###  _:genid-nodeid-node1is9h8bj6x62
+_:genid-nodeid-node1is9h8bj6x62 rdf:type owl:DatatypeProperty .
+
+
+###  http://identity.org/ontology/aai#authenticationStrength
+aai:authenticationStrength rdf:type owl:DatatypeProperty ;
+                           rdfs:domain aai:AAIEntity ;
+                           rdfs:range xsd:string ;
+                           rdfs:label "authentication strength" .
+
+
+###  http://identity.org/ontology/aai#expiresAt
+aai:expiresAt rdf:type owl:DatatypeProperty ;
+              rdfs:range xsd:dateTime ;
+              rdfs:label "expires at" .
+
+
+###  http://identity.org/ontology/aai#failedLoginAttempts
+aai:failedLoginAttempts rdf:type owl:DatatypeProperty ;
+                        rdfs:domain aai:AAIEntity ;
+                        rdfs:range xsd:int ;
+                        rdfs:label "failed login attempts" .
+
+
+###  http://identity.org/ontology/aai#isActive
+aai:isActive rdf:type owl:DatatypeProperty ;
+             rdfs:range xsd:boolean ;
+             rdfs:label "is active" .
+
+
+###  http://identity.org/ontology/aai#isAnomaly
+aai:isAnomaly rdf:type owl:DatatypeProperty ;
+              rdfs:domain aai:SecurityEvent ;
+              rdfs:range xsd:boolean ;
+              rdfs:label "is anomaly" .
+
+
+###  http://identity.org/ontology/aai#lastAccessAt
+aai:lastAccessAt rdf:type owl:DatatypeProperty ;
+                 rdfs:domain aai:AAIEntity ;
+                 rdfs:range xsd:dateTime ;
+                 rdfs:label "last access at" .
+
+
+###  http://identity.org/ontology/aai#mfaEnabled
+aai:mfaEnabled rdf:type owl:DatatypeProperty ;
+               rdfs:domain aai:AAIEntity ;
+               rdfs:range xsd:boolean ;
+               rdfs:label "MFA enabled" .
+
+
+###  http://identity.org/ontology/aai#riskScore
+aai:riskScore rdf:type owl:DatatypeProperty ;
+              rdfs:domain [ rdf:type owl:Class ;
+                            owl:unionOf ( aai:AAIEntity
+                                          aai:RiskAssessment
+                                          aai:Session
+                                        )
+                          ] ;
+              rdfs:range xsd:float ;
+              rdfs:label "risk score" .
+
+
+###  http://identity.org/ontology/aai#securityLevel
+aai:securityLevel rdf:type owl:DatatypeProperty ;
+                  rdfs:domain aai:AAIEntity ;
+                  rdfs:range xsd:string ;
+                  rdfs:label "security level" .
+
+
+###  http://identity.org/ontology/aai#sourceIp
+aai:sourceIp rdf:type owl:DatatypeProperty ;
+             rdfs:domain aai:Session ;
+             rdfs:range xsd:string ;
+             rdfs:label "source IP" .
+
+
+###  http://identity.org/ontology/aai#strengthScore
+aai:strengthScore rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf _:genid-nodeid-node1is9h8bj6x62 ;
+                  rdfs:domain aai:Credential ;
+                  rdfs:range xsd:int ;
+                  rdfs:label "strength score" .
+
+
+###  http://identity.org/ontology/aai#usageCount
+aai:usageCount rdf:type owl:DatatypeProperty ;
+               rdfs:range xsd:int ;
+               rdfs:label "usage count" .
+
+
+###  http://identity.org/ontology/aai#userAgent
+aai:userAgent rdf:type owl:DatatypeProperty ;
+              rdfs:domain aai:Session ;
+              rdfs:range xsd:string ;
+              rdfs:label "user agent" .
+
+
+###  http://identity.org/ontology/core#createdAt
+core:createdAt rdf:type owl:DatatypeProperty ;
+               rdfs:range xsd:dateTime ;
+               rdfs:label "created at" .
+
+
+###  http://identity.org/ontology/core#description
+core:description rdf:type owl:DatatypeProperty ;
+                 rdfs:range xsd:string ;
+                 rdfs:label "description" .
+
+
+###  http://identity.org/ontology/core#entityId
+core:entityId rdf:type owl:DatatypeProperty ;
+              rdfs:range xsd:string .
+
+
+###  http://identity.org/ontology/core#name
+core:name rdf:type owl:DatatypeProperty ;
+          rdfs:range xsd:string ;
+          rdfs:label "name" .
+
+
+###  http://identity.org/ontology/core#updatedAt
+core:updatedAt rdf:type owl:DatatypeProperty ;
+               rdfs:range xsd:dateTime ;
+               rdfs:label "updated at" .
+
+
+###  http://identity.org/ontology/iga#businessPurpose
+iga:businessPurpose rdf:type owl:DatatypeProperty ;
+                    rdfs:domain iga:IGAEntity ;
+                    rdfs:range xsd:string ;
+                    rdfs:label "business purpose" .
+
+
+###  http://identity.org/ontology/iga#complianceScope
+iga:complianceScope rdf:type owl:DatatypeProperty ;
+                    rdfs:domain iga:IGAEntity ;
+                    rdfs:range xsd:string ;
+                    rdfs:label "compliance scope" .
+
+
+###  http://identity.org/ontology/iga#department
+iga:department rdf:type owl:DatatypeProperty ;
+               rdfs:domain iga:HumanIdentity ;
+               rdfs:range xsd:string ;
+               rdfs:label "department" .
+
+
+###  http://identity.org/ontology/iga#email
+iga:email rdf:type owl:DatatypeProperty ;
+          rdfs:domain iga:HumanIdentity ;
+          rdfs:range xsd:string ;
+          rdfs:label "email" .
+
+
+###  http://identity.org/ontology/iga#employeeId
+iga:employeeId rdf:type owl:DatatypeProperty ;
+               rdfs:range xsd:string .
+
+
+###  http://identity.org/ontology/iga#firstName
+iga:firstName rdf:type owl:DatatypeProperty ;
+              rdfs:domain iga:HumanIdentity ;
+              rdfs:range xsd:string ;
+              rdfs:label "first name" .
+
+
+###  http://identity.org/ontology/iga#jobTitle
+iga:jobTitle rdf:type owl:DatatypeProperty ;
+             rdfs:domain iga:HumanIdentity ;
+             rdfs:range xsd:string ;
+             rdfs:label "job title" .
+
+
+###  http://identity.org/ontology/iga#justification
+iga:justification rdf:type owl:DatatypeProperty ;
+                  rdfs:range xsd:string ;
+                  rdfs:label "justification" .
+
+
+###  http://identity.org/ontology/iga#lastName
+iga:lastName rdf:type owl:DatatypeProperty ;
+             rdfs:domain iga:HumanIdentity ;
+             rdfs:range xsd:string ;
+             rdfs:label "last name" .
+
+
+###  http://identity.org/ontology/iga#priority
+iga:priority rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf _:genid-nodeid-node1is9h8bj6x56 ;
+             rdfs:domain iga:WorkflowInstance ;
+             rdfs:range xsd:int ;
+             rdfs:label "priority" .
+
+
+###  http://identity.org/ontology/iga#requiresAttestation
+iga:requiresAttestation rdf:type owl:DatatypeProperty ;
+                        rdfs:domain iga:IGAEntity ;
+                        rdfs:range xsd:boolean ;
+                        rdfs:label "requires attestation" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://identity.org/ontology/aai#AAIEntity
+aai:AAIEntity rdf:type owl:Class ;
+              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty aai:hasSecurityFor ;
+                                owl:someValuesFrom core:Entity
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty aai:hasSecurityFor ;
+                                owl:cardinality "1"^^xsd:nonNegativeInteger
+                              ] ;
+              owl:disjointWith iga:IGAEntity ;
+              rdfs:comment "Security view of an entity with authentication context" ;
+              rdfs:label "AAI Entity" .
+
+
+###  http://identity.org/ontology/aai#AccessGrant
+aai:AccessGrant rdf:type owl:Class ;
+                rdfs:comment "Granted access to resource" ;
+                rdfs:label "Access Grant" .
+
+
+###  http://identity.org/ontology/aai#ApiKey
+aai:ApiKey rdf:type owl:Class ;
+           rdfs:subClassOf aai:Credential .
+
+
+###  http://identity.org/ontology/aai#Application
+aai:Application rdf:type owl:Class ;
+                rdfs:subClassOf core:Resource ;
+                rdfs:comment "Integrated application" ;
+                rdfs:label "Application" .
+
+
+###  http://identity.org/ontology/aai#Certificate
+aai:Certificate rdf:type owl:Class ;
+                rdfs:subClassOf aai:Credential .
+
+
+###  http://identity.org/ontology/aai#Credential
+aai:Credential rdf:type owl:Class ;
+               rdfs:comment "Authentication credential for entity" ;
+               rdfs:label "Credential" .
+
+
+###  http://identity.org/ontology/aai#CredentialType
+aai:CredentialType rdf:type owl:Class ;
+                   owl:equivalentClass [ rdf:type owl:Class ;
+                                         owl:oneOf ( aai:ApiKey
+                                                     aai:Biometric
+                                                     aai:Certificate
+                                                     aai:MFADevice
+                                                     aai:Password
+                                                     aai:Token
+                                                   )
+                                       ] ;
+                   rdfs:label "Credential Type" .
+
+
+###  http://identity.org/ontology/aai#MFADevice
+aai:MFADevice rdf:type owl:Class ;
+              rdfs:subClassOf aai:Credential .
+
+
+###  http://identity.org/ontology/aai#Permission
+aai:Permission rdf:type owl:Class ;
+               rdfs:comment "Specific permission for resource action" ;
+               rdfs:label "Permission" .
+
+
+###  http://identity.org/ontology/aai#Policy
+aai:Policy rdf:type owl:Class ;
+           rdfs:comment "Authorization policy for access control" ;
+           rdfs:label "Policy" .
+
+
+###  http://identity.org/ontology/aai#PolicyEvaluation
+aai:PolicyEvaluation rdf:type owl:Class ;
+                     rdfs:comment "Result of policy evaluation" ;
+                     rdfs:label "Policy Evaluation" .
+
+
+###  http://identity.org/ontology/aai#PolicyType
+aai:PolicyType rdf:type owl:Class ;
+               owl:equivalentClass [ rdf:type owl:Class ;
+                                     owl:oneOf ( aai:ABAC
+                                                 aai:Contextual
+                                                 aai:Custom
+                                                 aai:RBAC
+                                               )
+                                   ] ;
+               rdfs:label "Policy Type" .
+
+
+###  http://identity.org/ontology/aai#RiskAssessment
+aai:RiskAssessment rdf:type owl:Class ;
+                   rdfs:comment "Security risk assessment" ;
+                   rdfs:label "Risk Assessment" .
+
+
+###  http://identity.org/ontology/aai#SecurityEvent
+aai:SecurityEvent rdf:type owl:Class ;
+                  rdfs:comment "Security-related event" ;
+                  rdfs:label "Security Event" .
+
+
+###  http://identity.org/ontology/aai#Session
+aai:Session rdf:type owl:Class ;
+            rdfs:comment "Authentication session" ;
+            rdfs:label "Session" .
+
+
+###  http://identity.org/ontology/aai#SessionType
+aai:SessionType rdf:type owl:Class ;
+                owl:equivalentClass [ rdf:type owl:Class ;
+                                      owl:oneOf ( aai:API
+                                                  aai:Mobile
+                                                  aai:Service
+                                                  aai:Web
+                                                )
+                                    ] ;
+                rdfs:label "Session Type" .
+
+
+###  http://identity.org/ontology/core#AuditEvent
+core:AuditEvent rdf:type owl:Class ;
+                rdfs:comment "Auditable event across domains" ;
+                rdfs:label "Audit Event" .
+
+
+###  http://identity.org/ontology/core#Entity
+core:Entity rdf:type owl:Class ;
+            owl:disjointWith core:Resource ,
+                             core:Tenant ;
+            rdfs:comment "Base class for all identity entities in the system" ;
+            rdfs:label "Entity" .
+
+
+###  http://identity.org/ontology/core#EntityStatus
+core:EntityStatus rdf:type owl:Class ;
+                  owl:equivalentClass [ rdf:type owl:Class ;
+                                        owl:oneOf ( core:Active
+                                                    core:Expired
+                                                    core:Inactive
+                                                    core:Suspended
+                                                  )
+                                      ] ;
+                  rdfs:label "Entity Status" .
+
+
+###  http://identity.org/ontology/core#EntityType
+core:EntityType rdf:type owl:Class ;
+                owl:equivalentClass [ rdf:type owl:Class ;
+                                      owl:oneOf ( core:API
+                                                  core:Bot
+                                                  core:Device
+                                                  core:Human
+                                                  core:Service
+                                                )
+                                    ] ;
+                rdfs:label "Entity Type" .
+
+
+###  http://identity.org/ontology/core#IdentityProvider
+core:IdentityProvider rdf:type owl:Class ;
+                      rdfs:comment "External identity provider" ;
+                      rdfs:label "Identity Provider" .
+
+
+###  http://identity.org/ontology/core#Resource
+core:Resource rdf:type owl:Class ;
+              owl:disjointWith core:Tenant ;
+              rdfs:comment "Protected resource that requires access control" ;
+              rdfs:label "Resource" .
+
+
+###  http://identity.org/ontology/core#SyncEvent
+core:SyncEvent rdf:type owl:Class ;
+               rdfs:comment "Cross-domain synchronization event" ;
+               rdfs:label "Sync Event" .
+
+
+###  http://identity.org/ontology/core#SyncJob
+core:SyncJob rdf:type owl:Class ;
+             rdfs:comment "Identity synchronization job" ;
+             rdfs:label "Sync Job" .
+
+
+###  http://identity.org/ontology/core#Tenant
+core:Tenant rdf:type owl:Class ;
+            rdfs:comment "Organizational unit for multi-tenancy support" ;
+            rdfs:label "Tenant" .
+
+
+###  http://identity.org/ontology/iga#AccessRequest
+iga:AccessRequest rdf:type owl:Class .
+
+
+###  http://identity.org/ontology/iga#ApiIdentity
+iga:ApiIdentity rdf:type owl:Class ;
+                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                  owl:onProperty iga:representsEntity ;
+                                  owl:allValuesFrom [ rdf:type owl:Restriction ;
+                                                      owl:onProperty core:hasEntityType ;
+                                                      owl:hasValue core:API
+                                                    ]
+                                ] ;
+                rdfs:comment "Identity attributes for API entities" ;
+                rdfs:label "API Identity" .
+
+
+###  http://identity.org/ontology/iga#Approval
+iga:Approval rdf:type owl:Class ;
+             rdfs:comment "Approval step in workflow" ;
+             rdfs:label "Approval" .
+
+
+###  http://identity.org/ontology/iga#Attestation
+iga:Attestation rdf:type owl:Class ;
+                rdfs:comment "Individual attestation within campaign" ;
+                rdfs:label "Attestation" .
+
+
+###  http://identity.org/ontology/iga#AttestationCampaign
+iga:AttestationCampaign rdf:type owl:Class ;
+                        rdfs:comment "Organized compliance review cycle" ;
+                        rdfs:label "Attestation Campaign" .
+
+
+###  http://identity.org/ontology/iga#AttestationType
+iga:AttestationType rdf:type owl:Class ;
+                    owl:equivalentClass [ rdf:type owl:Class ;
+                                          owl:oneOf ( iga:AccessReview
+                                                      iga:RiskReview
+                                                      iga:RoleReview
+                                                    )
+                                        ] ;
+                    rdfs:label "Attestation Type" .
+
+
+###  http://identity.org/ontology/iga#DeviceIdentity
+iga:DeviceIdentity rdf:type owl:Class ;
+                   rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                     owl:onProperty iga:representsEntity ;
+                                     owl:allValuesFrom [ rdf:type owl:Restriction ;
+                                                         owl:onProperty core:hasEntityType ;
+                                                         owl:hasValue core:Device
+                                                       ]
+                                   ] ;
+                   rdfs:comment "Identity attributes for device entities" ;
+                   rdfs:label "Device Identity" .
+
+
+###  http://identity.org/ontology/iga#Group
+iga:Group rdf:type owl:Class ;
+          rdfs:comment "Collection of entities for governance purposes" ;
+          rdfs:label "Group" .
+
+
+###  http://identity.org/ontology/iga#GroupMembership
+iga:GroupMembership rdf:type owl:Class ;
+                    rdfs:comment "Relationship between entity and group" ;
+                    rdfs:label "Group Membership" .
+
+
+###  http://identity.org/ontology/iga#GroupType
+iga:GroupType rdf:type owl:Class ;
+              owl:equivalentClass [ rdf:type owl:Class ;
+                                    owl:oneOf ( iga:Department
+                                                iga:Functional
+                                                iga:Project
+                                                iga:Security
+                                                iga:Team
+                                              )
+                                  ] ;
+              rdfs:label "Group Type" .
+
+
+###  http://identity.org/ontology/iga#HumanIdentity
+iga:HumanIdentity rdf:type owl:Class ;
+                  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                    owl:onProperty iga:representsEntity ;
+                                    owl:allValuesFrom [ rdf:type owl:Restriction ;
+                                                        owl:onProperty core:hasEntityType ;
+                                                        owl:hasValue core:Human
+                                                      ]
+                                  ] ;
+                  rdfs:comment "Identity attributes for human entities" ;
+                  rdfs:label "Human Identity" .
+
+
+###  http://identity.org/ontology/iga#IGAEntity
+iga:IGAEntity rdf:type owl:Class ;
+              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty iga:hasGovernanceFor ;
+                                owl:someValuesFrom core:Entity
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty iga:hasGovernanceFor ;
+                                owl:cardinality "1"^^xsd:nonNegativeInteger
+                              ] ;
+              rdfs:comment "Governance view of an entity with business context" ;
+              rdfs:label "IGA Entity" .
+
+
+###  http://identity.org/ontology/iga#PolicyViolation
+iga:PolicyViolation rdf:type owl:Class ;
+                    rdfs:comment "Detected policy or compliance violation" ;
+                    rdfs:label "Policy Violation" .
+
+
+###  http://identity.org/ontology/iga#Role
+iga:Role rdf:type owl:Class ;
+         rdfs:comment "Business role with associated permissions" ;
+         rdfs:label "Role" .
+
+
+###  http://identity.org/ontology/iga#RoleAssignment
+iga:RoleAssignment rdf:type owl:Class ;
+                   rdfs:comment "Assignment of role to entity" ;
+                   rdfs:label "Role Assignment" .
+
+
+###  http://identity.org/ontology/iga#RoleType
+iga:RoleType rdf:type owl:Class ;
+             owl:equivalentClass [ rdf:type owl:Class ;
+                                   owl:oneOf ( iga:Administrative
+                                               iga:Business
+                                               iga:Technical
+                                             )
+                                 ] ;
+             rdfs:label "Role Type" .
+
+
+###  http://identity.org/ontology/iga#ServiceIdentity
+iga:ServiceIdentity rdf:type owl:Class ;
+                    rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                      owl:onProperty iga:representsEntity ;
+                                      owl:allValuesFrom [ rdf:type owl:Restriction ;
+                                                          owl:onProperty core:hasEntityType ;
+                                                          owl:hasValue core:Service
+                                                        ]
+                                    ] ;
+                    rdfs:comment "Identity attributes for service entities" ;
+                    rdfs:label "Service Identity" .
+
+
+###  http://identity.org/ontology/iga#WorkflowInstance
+iga:WorkflowInstance rdf:type owl:Class ;
+                     rdfs:comment "Instance of a governance workflow" ;
+                     rdfs:label "Workflow Instance" .
+
+
+###  http://identity.org/ontology/iga#WorkflowType
+iga:WorkflowType rdf:type owl:Class ;
+                 owl:equivalentClass [ rdf:type owl:Class ;
+                                       owl:oneOf ( iga:AccessRequest
+                                                   iga:Certification
+                                                   iga:Deprovisioning
+                                                   iga:Provisioning
+                                                   iga:RoleChange
+                                                 )
+                                     ] ;
+                 rdfs:label "Workflow Type" .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://identity.org/ontology/aai#ABAC
+aai:ABAC rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/aai#API
+aai:API rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/aai#ApiKey
+aai:ApiKey rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/aai#Biometric
+aai:Biometric rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/aai#Certificate
+aai:Certificate rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/aai#Contextual
+aai:Contextual rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/aai#Custom
+aai:Custom rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/aai#MFADevice
+aai:MFADevice rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/aai#Mobile
+aai:Mobile rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/aai#Password
+aai:Password rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/aai#RBAC
+aai:RBAC rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/aai#Service
+aai:Service rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/aai#Token
+aai:Token rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/aai#Web
+aai:Web rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/core#API
+core:API rdf:type owl:NamedIndividual ,
+                  core:EntityType ;
+         rdfs:label "API" .
+
+
+###  http://identity.org/ontology/core#Active
+core:Active rdf:type owl:NamedIndividual ,
+                     core:EntityStatus ;
+            rdfs:label "Active" .
+
+
+###  http://identity.org/ontology/core#Bot
+core:Bot rdf:type owl:NamedIndividual ,
+                  core:EntityType ;
+         rdfs:label "Bot" .
+
+
+###  http://identity.org/ontology/core#Device
+core:Device rdf:type owl:NamedIndividual ,
+                     core:EntityType ;
+            rdfs:label "Device" .
+
+
+###  http://identity.org/ontology/core#Expired
+core:Expired rdf:type owl:NamedIndividual ,
+                      core:EntityStatus ;
+             rdfs:label "Expired" .
+
+
+###  http://identity.org/ontology/core#Human
+core:Human rdf:type owl:NamedIndividual ,
+                    core:EntityType ;
+           rdfs:label "Human" .
+
+
+###  http://identity.org/ontology/core#Inactive
+core:Inactive rdf:type owl:NamedIndividual ,
+                       core:EntityStatus ;
+              rdfs:label "Inactive" .
+
+
+###  http://identity.org/ontology/core#Service
+core:Service rdf:type owl:NamedIndividual ,
+                      core:EntityType ;
+             rdfs:label "Service" .
+
+
+###  http://identity.org/ontology/core#Suspended
+core:Suspended rdf:type owl:NamedIndividual ,
+                        core:EntityStatus ;
+               rdfs:label "Suspended" .
+
+
+###  http://identity.org/ontology/iga#AccessRequest
+iga:AccessRequest rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/iga#AccessReview
+iga:AccessReview rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/iga#Administrative
+iga:Administrative rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/iga#Business
+iga:Business rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/iga#Certification
+iga:Certification rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/iga#Department
+iga:Department rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/iga#Deprovisioning
+iga:Deprovisioning rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/iga#Functional
+iga:Functional rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/iga#Project
+iga:Project rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/iga#Provisioning
+iga:Provisioning rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/iga#RiskReview
+iga:RiskReview rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/iga#RoleChange
+iga:RoleChange rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/iga#RoleReview
+iga:RoleReview rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/iga#Security
+iga:Security rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/iga#Team
+iga:Team rdf:type owl:NamedIndividual .
+
+
+###  http://identity.org/ontology/iga#Technical
+iga:Technical rdf:type owl:NamedIndividual .
+
+
+[ xsd:minInclusive 1
+] .
+
+[ xsd:maxInclusive 5
+ ] .
+
+[ xsd:minInclusive 0
+ ] .
+
+[ xsd:maxInclusive 100
+ ] .
+
+#################################################################
+#    Annotations
+#################################################################
+
+aai:ApiKey rdfs:comment "API key credential" ;
+            rdfs:label "API Key" .
+
+
+aai:Certificate rdfs:comment "X.509 certificate credential" ;
+                rdfs:label "Certificate" .
+
+
+aai:MFADevice rdfs:comment "Multi-factor authentication device" ;
+              rdfs:label "MFA Device" .
+
+
+core:entityId rdfs:label "entity ID" .
+
+
+iga:AccessRequest rdfs:comment "Request for access to resources" ;
+                  rdfs:label "Access Request" .
+
+
+iga:employeeId rdfs:label "employee ID" .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi

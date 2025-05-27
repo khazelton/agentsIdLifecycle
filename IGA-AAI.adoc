@@ -1,5 +1,9 @@
 IGA-AAI.adoc
 
+Please analyze the two uploaded documents and propose a new domain model that separates the concerns of Identity Governance Administration (IGA) and Authentication, Authorization, Identification, and Credentials
+
+Earlier findings
+
 3) AAI: Technical Implementation Patterns
 
 OAuth 2.0 + OIDC for Everything: Use OAuth for both human and machine authentication flows. Service-to-service communication uses client credentials flow, while humans use authorization code flow.
@@ -109,394 +113,559 @@ Session Management: Session entities track active connections for both human use
 
 - - -
 
+See analysis and critique of separating domains of IGA and AAI in IGAgeneralization.adoc
+Domain Model
 
-- - -
+ERD: https://claude.ai/public/artifacts/b84cc87e-b5aa-4bc6-ae37-6469858a5fce 
 
-ERDiagram
-	%% Core Identity Entities
-	Entity {
-    	string id PK
-    	string entityType "HUMAN|SERVICE|DEVICE|API|BOT"
-    	string status "ACTIVE|INACTIVE|SUSPENDED|EXPIRED"
-    	datetime createdAt
-    	datetime updatedAt
-    	datetime lastAccessAt
-    	string createdBy FK
-    	json metadata
-    	string tenantId FK
-	}
-
-	HumanIdentity {
-    	string entityId PK,FK
-    	string firstName
-    	string lastName
-    	string email
-    	string employeeId
-    	string department
-    	string jobTitle
-    	string manager FK
-    	date startDate
-    	date endDate
-    	boolean isContractor
-    	string preferredLanguage
-    	json personalAttributes
-	}
-
-	ServiceIdentity {
-    	string entityId PK,FK
-    	string serviceName
-    	string serviceType "API|MICROSERVICE|LAMBDA|BATCH_JOB"
-    	string environment "DEV|STAGING|PROD"
-    	string applicationId FK
-    	string ownerTeam
-    	json serviceMetadata
-    	string healthCheckUrl
-    	datetime lastHealthCheck
-	}
-
-	DeviceIdentity {
-    	string entityId PK,FK
-    	string deviceName
-    	string deviceType "IOT|MOBILE|LAPTOP|SERVER"
-    	string macAddress
-    	string serialNumber
-    	string osType
-    	string osVersion
-    	string location
-    	string assignedTo FK
-    	datetime lastSeen
-    	json deviceAttributes
-	}
-
-	ApiIdentity {
-    	string entityId PK,FK
-    	string apiName
-    	string version
-    	string endpoint
-    	string documentation
-    	string[] scopes
-    	string rateLimit
-    	string ownerService FK
-    	boolean isPublic
-    	json apiMetadata
-	}
-
-	%% Authentication & Credentials
-	Credential {
-    	string id PK
-    	string entityId FK
-    	string credentialType "PASSWORD|CERTIFICATE|API_KEY|TOKEN|BIOMETRIC"
-    	string status "ACTIVE|EXPIRED|REVOKED|PENDING"
-    	datetime expiresAt
-    	datetime lastRotated
-    	string hashedValue
-    	json credentialMetadata
-    	boolean requiresRotation
-    	int rotationDays
-	}
-
-	Certificate {
-    	string credentialId PK,FK
-    	string serialNumber
-    	string issuer
-    	string subject
-    	datetime validFrom
-    	datetime validTo
-    	string algorithm
-    	int keySize
-    	string certificateChain
-    	boolean isRevoked
-    	string revocationReason
-	}
-
-	ApiKey {
-    	string credentialId PK,FK
-    	string keyPrefix
-    	string[] scopes
-    	string description
-    	int usageCount
-    	int maxUsage
-    	datetime lastUsed
-    	string ipWhitelist
-    	boolean isRateLimited
-	}
-
-	%% Authorization Framework
-	Role {
-    	string id PK
-    	string name
-    	string description
-    	string roleType "BUSINESS|TECHNICAL|ADMINISTRATIVE"
-    	string tenantId FK
-    	boolean isSystem
-    	json roleMetadata
-    	datetime createdAt
-    	string createdBy FK
-	}
-
-	Permission {
-    	string id PK
-    	string resource
-    	string action
-    	string effect "ALLOW|DENY"
-    	json conditions
-    	string description
-    	boolean isSystem
-    	string tenantId FK
-	}
-
-	Policy {
-    	string id PK
-    	string name
-    	string description
-    	string policyType "ABAC|RBAC|CUSTOM"
-    	json rules
-    	string effect "ALLOW|DENY"
-    	boolean isActive
-    	datetime effectiveFrom
-    	datetime effectiveTo
-    	string tenantId FK
-    	string version
-	}
-
-	%% Access Management
-	AccessRequest {
-    	string id PK
-    	string requesterId FK
-    	string resourceType
-    	string resourceId
-    	string accessType
-    	string justification
-    	string status "PENDING|APPROVED|REJECTED|EXPIRED"
-    	datetime requestedAt
-    	datetime approvedAt
-    	string approvedBy FK
-    	datetime expiresAt
-    	boolean isEmergency
-    	json requestMetadata
-	}
-
-	AccessGrant {
-    	string id PK
-    	string entityId FK
-    	string resourceType
-    	string resourceId
-    	string accessType
-    	datetime grantedAt
-    	datetime expiresAt
-    	string grantedBy FK
-    	string grantSource "REQUEST|PROVISIONING|INHERITANCE"
-    	boolean isTemporary
-    	json grantConditions
-	}
-
-	Session {
-    	string id PK
-    	string entityId FK
-    	string sessionType "WEB|API|SERVICE"
-    	datetime startTime
-    	datetime lastActivity
-    	datetime expiresAt
-    	string sourceIp
-    	string userAgent
-    	json contextData
-    	boolean isActive
-    	string terminationReason
-	}
-
-	%% Resource Management
-	Resource {
-    	string id PK
-    	string name
-    	string resourceType "APPLICATION|DATABASE|API|FILE|SYSTEM"
-    	string description
-    	string owner FK
-    	string[] tags
-    	json resourceMetadata
-    	boolean requiresApproval
-    	string sensitivity "PUBLIC|INTERNAL|CONFIDENTIAL|RESTRICTED"
-    	string tenantId FK
-	}
-
-	Application {
-    	string resourceId PK,FK
-    	string applicationName
-    	string applicationUrl
-    	string applicationType "WEB|MOBILE|DESKTOP|API"
-    	string[] supportedProtocols
-    	boolean ssoEnabled
-    	string provisioningType "MANUAL|AUTO|JIT"
-    	json ssoConfiguration
-    	string healthStatus
-	}
-
-	%% Lifecycle & Workflow
-	LifecycleState {
-    	string id PK
-    	string entityId FK
-    	string currentState
-    	string previousState
-    	datetime stateChangedAt
-    	string changedBy FK
-    	string changeReason
-    	json stateMetadata
-    	boolean isSystemInitiated
-	}
-
-	WorkflowInstance {
-    	string id PK
-    	string workflowType "PROVISIONING|DEPROVISIONING|ACCESS_REQUEST|CERTIFICATION"
-    	string entityId FK
-    	string status "RUNNING|COMPLETED|FAILED|CANCELLED"
-    	datetime startedAt
-    	datetime completedAt
-    	string initiatedBy FK
-    	json workflowData
-    	string currentStep
-    	json stepHistory
-	}
-
-	Approval {
-    	string id PK
-    	string workflowInstanceId FK
-    	string approverEntityId FK
-    	string status "PENDING|APPROVED|REJECTED|DELEGATED"
-    	datetime approvedAt
-    	string comments
-    	boolean isDelegated
-    	string delegatedTo FK
-    	int approvalOrder
-    	json approvalMetadata
-	}
-
-	%% Monitoring & Audit
-	AuditEvent {
-    	string id PK
-    	string entityId FK
-    	string eventType
-    	string action
-    	string resource
-    	datetime timestamp
-    	string sourceIp
-    	string userAgent
-    	string result "SUCCESS|FAILURE|PARTIAL"
-    	json eventData
-    	string correlationId
-    	string sessionId FK
-	}
-
-	RiskAssessment {
-    	string id PK
-    	string entityId FK
-    	float riskScore
-    	string riskLevel "LOW|MEDIUM|HIGH|CRITICAL"
-    	json riskFactors
-    	datetime assessedAt
-    	string assessmentType "LOGIN|ACCESS|BEHAVIORAL|PERIODIC"
-    	json mitigationActions
-    	boolean requiresReview
-	}
-
-	Attestation {
-    	string id PK
-    	string entityId FK
-    	string attestationType "ACCESS_REVIEW|ROLE_REVIEW|RISK_REVIEW"
-    	string status "PENDING|COMPLETED|OVERDUE"
-    	datetime dueDate
-    	datetime completedAt
-    	string attestedBy FK
-    	string decision "APPROVED|REVOKED|MODIFIED"
-    	string comments
-    	json attestationData
-	}
-
-	%% Group & Organizational Structure
-	Group {
-    	string id PK
-    	string name
-    	string groupType "DEPARTMENT|TEAM|PROJECT|SECURITY|FUNCTIONAL"
-    	string description
-    	string parentGroup FK
-    	string owner FK
-    	boolean isDynamic
-    	json membershipRules
-    	string tenantId FK
-    	datetime createdAt
-	}
-
-	Tenant {
-    	string id PK
-    	string name
-    	string domain
-    	string tenantType "ORGANIZATION|DEPARTMENT|ENVIRONMENT"
-    	json configuration
-    	boolean isActive
-    	datetime createdAt
-    	string parentTenant FK
-	}
-
-	%% Integration & Federation
-	IdentityProvider {
-    	string id PK
-    	string name
-    	string providerType "SAML|OIDC|LDAP|AD|CUSTOM"
-    	string endpoint
-    	json configuration
-    	boolean isActive
-    	string tenantId FK
-    	json attributeMapping
-    	string priority
-	}
-
-	SyncJob {
-    	string id PK
-    	string identityProviderId FK
-    	string status "RUNNING|COMPLETED|FAILED|SCHEDULED"
-    	datetime startedAt
-    	datetime completedAt
-    	int recordsProcessed
-    	int recordsSuccess
-    	int recordsError
-    	json errorDetails
-    	string jobType "FULL|INCREMENTAL|DELTA"
-	}
-
-	%% Relationships
-	Entity ||--o{ HumanIdentity : "is-a"
-	Entity ||--o{ ServiceIdentity : "is-a"
-	Entity ||--o{ DeviceIdentity : "is-a"
-	Entity ||--o{ ApiIdentity : "is-a"
+erDiagram
+    %% ============================================
+    %% SHARED CORE FOUNDATION
+    %% ============================================
     
-	Entity ||--o{ Credential : "has"
-	Credential ||--o{ Certificate : "extends"
-	Credential ||--o{ ApiKey : "extends"
+    Entity {
+        string id PK
+        string entityType "HUMAN|SERVICE|DEVICE|API|BOT"
+        string status "ACTIVE|INACTIVE|SUSPENDED|EXPIRED"
+        datetime createdAt
+        datetime updatedAt
+        string tenantId FK
+        json metadata
+    }
     
-	Entity ||--o{ AccessGrant : "has"
-	Entity ||--o{ Session : "creates"
-	Entity ||--o{ AuditEvent : "generates"
-	Entity ||--o{ RiskAssessment : "assessed"
-	Entity ||--o{ LifecycleState : "tracks"
+    Tenant {
+        string id PK
+        string name
+        string domain
+        string tenantType "ORGANIZATION|DEPARTMENT|ENVIRONMENT"
+        json configuration
+        boolean isActive
+        datetime createdAt
+        string parentTenant FK
+    }
     
-	Role ||--o{ Permission : "contains"
-	Entity }o--o{ Role : "assigned"
-	Entity }o--o{ Group : "member-of"
-	Group }o--o{ Role : "has"
+    Resource {
+        string id PK
+        string name
+        string resourceType "APPLICATION|DATABASE|API|FILE|SYSTEM"
+        string description
+        string sensitivity "PUBLIC|INTERNAL|CONFIDENTIAL|RESTRICTED"
+        string tenantId FK
+        json resourceMetadata
+    }
     
-	Policy ||--o{ Permission : "governs"
-	Resource ||--o{ Application : "is-a"
-	AccessRequest ||--|| AccessGrant : "results-in"
+    %% ============================================
+    %% IGA DOMAIN - Identity Governance & Administration
+    %% ============================================
     
-	WorkflowInstance ||--o{ Approval : "requires"
-	Entity ||--o{ Attestation : "subject-of"
+    IGAEntity {
+        string entityId PK,FK
+        string businessOwner FK
+        string businessPurpose
+        string dataClassification
+        string complianceScope
+        datetime lastGovernanceReview
+        boolean requiresAttestation
+        json businessContext
+        string governanceStatus "COMPLIANT|NON_COMPLIANT|UNDER_REVIEW"
+    }
     
-	Tenant ||--o{ Entity : "owns"
-	Tenant ||--o{ IdentityProvider : "configured"
-	IdentityProvider ||--o{ SyncJob : "executes"
+    HumanIdentity {
+        string entityId PK,FK
+        string firstName
+        string lastName
+        string email
+        string employeeId
+        string department
+        string jobTitle
+        string manager FK
+        date startDate
+        date endDate
+        boolean isContractor
+        string costCenter
+        string location
+        json personalAttributes
+    }
     
-	HumanIdentity ||--o{ HumanIdentity : "manages"
-	Group ||--o{ Group : "parent-child"
-	Tenant ||--o{ Tenant : "parent-child"
+    ServiceIdentity {
+        string entityId PK,FK
+        string serviceName
+        string serviceType "API|MICROSERVICE|LAMBDA|BATCH_JOB"
+        string environment "DEV|STAGING|PROD"
+        string applicationId FK
+        string ownerTeam
+        string businessCriticality "LOW|MEDIUM|HIGH|CRITICAL"
+        json serviceMetadata
+    }
+    
+    DeviceIdentity {
+        string entityId PK,FK
+        string deviceName
+        string deviceType "IOT|MOBILE|LAPTOP|SERVER"
+        string assignedTo FK
+        string location
+        string assetTag
+        string businessUnit
+        json deviceAttributes
+    }
+    
+    ApiIdentity {
+        string entityId PK,FK
+        string apiName
+        string version
+        string endpoint
+        string documentation
+        string ownerService FK
+        boolean isPublic
+        string supportLevel
+        json apiMetadata
+    }
+    
+    %% IGA Governance Structures
+    Group {
+        string id PK
+        string name
+        string groupType "DEPARTMENT|TEAM|PROJECT|SECURITY|FUNCTIONAL"
+        string description
+        string parentGroup FK
+        string businessOwner FK
+        boolean isDynamic
+        json membershipRules
+        string tenantId FK
+        datetime createdAt
+    }
+    
+    GroupMembership {
+        string id PK
+        string groupId FK
+        string entityId FK
+        datetime assignedAt
+        datetime expiresAt
+        string assignedBy FK
+        string justification
+        boolean isInherited
+        string membershipSource "MANUAL|AUTOMATIC|INHERITED"
+    }
+    
+    Role {
+        string id PK
+        string name
+        string description
+        string roleType "BUSINESS|TECHNICAL|ADMINISTRATIVE"
+        string businessOwner FK
+        string riskLevel "LOW|MEDIUM|HIGH|CRITICAL"
+        boolean requiresApproval
+        string tenantId FK
+        json roleMetadata
+        datetime createdAt
+    }
+    
+    RoleAssignment {
+        string id PK
+        string roleId FK
+        string entityId FK
+        datetime assignedAt
+        datetime expiresAt
+        string assignedBy FK
+        string justification
+        string assignmentSource "MANUAL|WORKFLOW|INHERITANCE"
+        json assignmentConditions
+    }
+    
+    %% IGA Workflow & Lifecycle Management
+    WorkflowInstance {
+        string id PK
+        string workflowType "PROVISIONING|DEPROVISIONING|ACCESS_REQUEST|CERTIFICATION|ROLE_CHANGE"
+        string entityId FK
+        string status "PENDING|RUNNING|COMPLETED|FAILED|CANCELLED"
+        int priority "1-5"
+        datetime startedAt
+        datetime slaTarget
+        datetime completedAt
+        string initiatedBy FK
+        json workflowData
+        string currentStep
+        json stepHistory
+    }
+    
+    Approval {
+        string id PK
+        string workflowInstanceId FK
+        string approverEntityId FK
+        string status "PENDING|APPROVED|REJECTED|DELEGATED|ESCALATED"
+        datetime approvedAt
+        string comments
+        boolean isDelegated
+        string delegatedTo FK
+        int approvalOrder
+        datetime escalationTime
+        json approvalMetadata
+    }
+    
+    AccessRequest {
+        string id PK
+        string requesterId FK
+        string resourceId FK
+        string accessType
+        string businessJustification
+        string status "PENDING|APPROVED|REJECTED|EXPIRED|CANCELLED"
+        datetime requestedAt
+        datetime approvedAt
+        string approvedBy FK
+        datetime expiresAt
+        boolean isEmergency
+        string riskAssessment
+        json requestMetadata
+    }
+    
+    %% IGA Compliance & Attestation
+    AttestationCampaign {
+        string id PK
+        string name
+        string campaignType "ACCESS_REVIEW|ROLE_REVIEW|SOD_REVIEW|RISK_REVIEW"
+        string description
+        datetime startDate
+        datetime endDate
+        string status "PLANNED|ACTIVE|COMPLETED|OVERDUE"
+        string scope
+        string tenantId FK
+        json campaignConfig
+    }
+    
+    Attestation {
+        string id PK
+        string campaignId FK
+        string entityId FK
+        string attestationType "ACCESS_REVIEW|ROLE_REVIEW|RISK_REVIEW"
+        string status "PENDING|COMPLETED|OVERDUE|ESCALATED"
+        datetime dueDate
+        datetime completedAt
+        string attestedBy FK
+        string decision "APPROVED|REVOKED|MODIFIED|EXCEPTION"
+        string comments
+        json evidenceData
+        json attestationData
+    }
+    
+    PolicyViolation {
+        string id PK
+        string entityId FK
+        string violationType "SOD|EXCESSIVE_ACCESS|DORMANT_ACCOUNT|POLICY_BREACH"
+        string severity "LOW|MEDIUM|HIGH|CRITICAL"
+        string description
+        datetime detectedAt
+        datetime resolvedAt
+        string status "OPEN|IN_PROGRESS|RESOLVED|ACCEPTED_RISK"
+        string assignedTo FK
+        json violationDetails
+    }
+    
+    %% ============================================
+    %% AAI DOMAIN - Authentication, Authorization & Identity
+    %% ============================================
+    
+    AAIEntity {
+        string entityId PK,FK
+        datetime lastAccessAt
+        string securityLevel "LOW|MEDIUM|HIGH|MAXIMUM"
+        float currentRiskScore
+        string authenticationStrength "WEAK|MEDIUM|STRONG|MAXIMUM"
+        boolean mfaEnabled
+        int failedLoginAttempts
+        datetime lastPasswordChange
+        json securityContext
+        string authenticationStatus "ACTIVE|LOCKED|SUSPENDED|EXPIRED"
+    }
+    
+    %% AAI Authentication & Credentials
+    Credential {
+        string id PK
+        string entityId FK
+        string credentialType "PASSWORD|CERTIFICATE|API_KEY|TOKEN|BIOMETRIC|MFA_DEVICE"
+        string status "ACTIVE|EXPIRED|REVOKED|PENDING|COMPROMISED"
+        datetime createdAt
+        datetime expiresAt
+        datetime lastRotated
+        string hashedValue
+        int strengthScore "0-100"
+        boolean requiresRotation
+        int rotationDays
+        json credentialMetadata
+    }
+    
+    Certificate {
+        string credentialId PK,FK
+        string serialNumber
+        string issuer
+        string subject
+        datetime validFrom
+        datetime validTo
+        string algorithm
+        int keySize
+        string certificateChain
+        boolean isRevoked
+        string revocationReason
+        datetime revokedAt
+    }
+    
+    ApiKey {
+        string credentialId PK,FK
+        string keyPrefix
+        string[] allowedScopes
+        string description
+        int usageCount
+        int maxUsage
+        datetime lastUsed
+        string[] ipWhitelist
+        boolean isRateLimited
+        int rateLimit
+        string keyStrength
+    }
+    
+    MFADevice {
+        string credentialId PK,FK
+        string deviceType "TOTP|SMS|PUSH|HARDWARE_TOKEN|BIOMETRIC"
+        string deviceIdentifier
+        boolean isActive
+        datetime lastUsed
+        int successfulUses
+        int failedUses
+        datetime enrolledAt
+        json deviceMetadata
+    }
+    
+    %% AAI Authorization Framework
+    Permission {
+        string id PK
+        string resource
+        string action
+        string effect "ALLOW|DENY"
+        json conditions
+        string description
+        boolean isSystem
+        string tenantId FK
+        string contextRequirements
+    }
+    
+    Policy {
+        string id PK
+        string name
+        string description
+        string policyType "ABAC|RBAC|CUSTOM|CONTEXTUAL"
+        json rules
+        string effect "ALLOW|DENY"
+        boolean isActive
+        datetime effectiveFrom
+        datetime effectiveTo
+        string tenantId FK
+        string version
+        int priority
+    }
+    
+    PolicyEvaluation {
+        string id PK
+        string policyId FK
+        string entityId FK
+        string resourceId FK
+        string action
+        string decision "ALLOW|DENY|NOT_APPLICABLE"
+        json evaluationContext
+        datetime evaluatedAt
+        int evaluationTime
+        string sessionId FK
+    }
+    
+    AccessGrant {
+        string id PK
+        string entityId FK
+        string resourceId FK
+        string accessType
+        datetime grantedAt
+        datetime expiresAt
+        string grantedBy FK
+        string grantSource "POLICY|ROLE|DIRECT|EMERGENCY"
+        boolean isTemporary
+        json grantConditions
+        string status "ACTIVE|EXPIRED|REVOKED|SUSPENDED"
+    }
+    
+    %% AAI Session & Context Management
+    Session {
+        string id PK
+        string entityId FK
+        string sessionType "WEB|API|SERVICE|MOBILE"
+        datetime startTime
+        datetime lastActivity
+        datetime expiresAt
+        string sourceIp
+        string userAgent
+        string location
+        json contextData
+        boolean isActive
+        string terminationReason
+        float riskScore
+    }
+    
+    SecurityEvent {
+        string id PK
+        string entityId FK
+        string eventType "AUTHENTICATION|AUTHORIZATION|ANOMALY|VIOLATION"
+        string eventCategory "SUCCESS|FAILURE|SUSPICIOUS|BLOCKED"
+        string action
+        string resource
+        datetime timestamp
+        string sourceIp
+        string userAgent
+        string result "SUCCESS|FAILURE|BLOCKED"
+        json eventData
+        string correlationId
+        string sessionId FK
+        boolean isAnomaly
+        float riskContribution
+    }
+    
+    RiskAssessment {
+        string id PK
+        string entityId FK
+        float riskScore
+        string riskLevel "LOW|MEDIUM|HIGH|CRITICAL"
+        json riskFactors
+        datetime assessedAt
+        string assessmentType "LOGIN|ACCESS|BEHAVIORAL|PERIODIC|CONTINUOUS"
+        json mitigationActions
+        boolean requiresAction
+        string assessmentEngine
+        json contextFactors
+    }
+    
+    %% AAI Application Integration
+    Application {
+        string resourceId PK,FK
+        string applicationName
+        string applicationUrl
+        string applicationType "WEB|MOBILE|DESKTOP|API|SERVICE"
+        string[] supportedProtocols
+        boolean ssoEnabled
+        string authenticationMethod "SAML|OIDC|LDAP|CUSTOM"
+        json ssoConfiguration
+        string healthStatus
+        datetime lastHealthCheck
+        json integrationMetadata
+    }
+    
+    %% ============================================
+    %% CROSS-DOMAIN INTEGRATION
+    %% ============================================
+    
+    %% Shared Audit Trail
+    AuditEvent {
+        string id PK
+        string entityId FK
+        string domain "IGA|AAI|SHARED"
+        string eventType
+        string action
+        string resource
+        datetime timestamp
+        string sourceSystem
+        string initiatedBy FK
+        string result "SUCCESS|FAILURE|PARTIAL"
+        json eventData
+        string correlationId
+        string sessionId FK
+        json businessContext
+    }
+    
+    %% Cross-Domain Synchronization
+    SyncEvent {
+        string id PK
+        string sourceSystem "IGA|AAI"
+        string targetSystem "IGA|AAI"
+        string eventType "CREATE|UPDATE|DELETE|SYNC"
+        string entityId FK
+        json changeData
+        datetime processedAt
+        string status "PENDING|COMPLETED|FAILED|RETRY"
+        string errorMessage
+        int retryCount
+    }
+    
+    %% External Integration
+    IdentityProvider {
+        string id PK
+        string name
+        string providerType "SAML|OIDC|LDAP|AD|CUSTOM"
+        string endpoint
+        json configuration
+        boolean isActive
+        string tenantId FK
+        json attributeMapping
+        int priority
+        string domain "IGA|AAI|BOTH"
+    }
+    
+    SyncJob {
+        string id PK
+        string identityProviderId FK
+        string targetDomain "IGA|AAI|BOTH"
+        string status "RUNNING|COMPLETED|FAILED|SCHEDULED"
+        datetime startedAt
+        datetime completedAt
+        int recordsProcessed
+        int recordsSuccess
+        int recordsError
+        json errorDetails
+        string jobType "FULL|INCREMENTAL|DELTA"
+    }
+    
+    %% ============================================
+    %% RELATIONSHIPS
+    %% ============================================
+    
+    %% Core Entity Relationships
+    Entity ||--|| IGAEntity : "has governance"
+    Entity ||--|| AAIEntity : "has security"
+    Entity ||--o{ HumanIdentity : "is-a"
+    Entity ||--o{ ServiceIdentity : "is-a"
+    Entity ||--o{ DeviceIdentity : "is-a"
+    Entity ||--o{ ApiIdentity : "is-a"
+    
+    %% IGA Domain Relationships
+    IGAEntity ||--o{ GroupMembership : "member of"
+    IGAEntity ||--o{ RoleAssignment : "assigned"
+    IGAEntity ||--o{ WorkflowInstance : "subject of"
+    IGAEntity ||--o{ AccessRequest : "requests"
+    IGAEntity ||--o{ Attestation : "attested"
+    IGAEntity ||--o{ PolicyViolation : "violates"
+    
+    Group ||--o{ GroupMembership : "contains"
+    Role ||--o{ RoleAssignment : "assigned to"
+    WorkflowInstance ||--o{ Approval : "requires"
+    AttestationCampaign ||--o{ Attestation : "contains"
+    
+    %% AAI Domain Relationships
+    AAIEntity ||--o{ Credential : "has"
+    AAIEntity ||--o{ Session : "creates"
+    AAIEntity ||--o{ SecurityEvent : "generates"
+    AAIEntity ||--o{ RiskAssessment : "assessed"
+    AAIEntity ||--o{ AccessGrant : "granted"
+    AAIEntity ||--o{ PolicyEvaluation : "evaluated"
+    
+    Credential ||--o{ Certificate : "extends"
+    Credential ||--o{ ApiKey : "extends"
+    Credential ||--o{ MFADevice : "extends"
+    
+    Policy ||--o{ PolicyEvaluation : "evaluated by"
+    Policy ||--o{ Permission : "contains"
+    Resource ||--o{ Application : "is-a"
+    Session ||--o{ SecurityEvent : "contains"
+    
+    %% Cross-Domain Relationships
+    Entity ||--o{ AuditEvent : "generates"
+    Entity ||--o{ SyncEvent : "synchronized"
+    AccessRequest ||--o{ AccessGrant : "results in"
+    Tenant ||--o{ Entity : "owns"
+    Tenant ||--o{ IdentityProvider : "configured"
+    IdentityProvider ||--o{ SyncJob : "executes"
 
-ERD: https://claude.ai/public/artifacts/af557c7c-2a33-4b22-9228-cc5c5664db63
+    https://claude.ai/public/artifacts/38f2c448-b3e1-48cc-8b12-d41aa742430e <- ERD diagram of above
 
-Customize the model: https://claude.ai/chat/5e428696-b840-4b37-95c0-0f98f47032e2?artifactId=remixed-af557c7c 
