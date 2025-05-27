@@ -1,12 +1,11 @@
 IGA-AAI.adoc
 
-<<<<<<< HEAD
 Please analyze the two uploaded documents and propose a new domain model that separates the concerns of Identity Governance Administration (IGA) and Authentication, Authorization, Identification, and Credentials
 
 Earlier findings
-=======
+
 Integrated management of authentication, authorization, and credentials for human and non-human identities
->>>>>>> refs/remotes/origin/main
+
 
 3) AAI: Technical Implementation Patterns
 
@@ -29,7 +28,6 @@ Certificate-Based Auth: X.509 certificate management with automated rotation
 API Key Management: Generation, rotation, and scope management
 
 Biometric Integration: Support for modern authentication methods
-
 - Policy Engine
 
 ABAC Implementation: Attribute-based access control with dynamic policy evaluation
